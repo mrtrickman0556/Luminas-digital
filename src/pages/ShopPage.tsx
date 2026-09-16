@@ -1,29 +1,58 @@
-import React, { useState, useMemo } from 'react';
-import { Search, SlidersHorizontal, ArrowUpDown, X, Filter, Sparkles } from 'lucide-react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Search, SlidersHorizontal, ArrowUpDown, X, Filter, Sparkles, RotateCw } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { ProductCard } from '../components/ProductCard';
+import { ProductGridSkeleton } from '../components/ProductGridSkeleton';
 import { PRODUCT_CATEGORIES } from '../data/initialProducts';
 import { LiveSearchDropdown } from '../components/LiveSearchDropdown';
 
 export const ShopPage: React.FC = () => {
-  const { products, activeCategoryFilter, setActiveCategoryFilter } = useStore();
+  const { products, activeCategoryFilter, setActiveCategoryFilter, isLoadingProducts, simulateDataFetch } = useStore();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>(activeCategoryFilter || 'All Products');
   const [priceFilter, setPriceFilter] = useState<'all' | 'under20' | '20to30' | 'above30'>('all');
   const [sortBy, setSortBy] = useState<'popular' | 'newest' | 'price-low' | 'price-high' | 'rating'>('popular');
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Keep local category synced if store filter changes
-  React.useEffect(() => {
+  useEffect(() => {
     if (activeCategoryFilter) {
       setSelectedCategory(activeCategoryFilter);
     }
   }, [activeCategoryFilter]);
 
   const handleCategorySelect = (cat: string) => {
+    if (selectedCategory === cat) return;
+    setIsTransitioning(true);
     setSelectedCategory(cat);
     setActiveCategoryFilter(cat);
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 320);
   };
+
+  const handlePriceFilterChange = (val: 'all' | 'under20' | '20to30' | 'above30') => {
+    setIsTransitioning(true);
+    setPriceFilter(val);
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 250);
+  };
+
+  const handleSortChange = (val: 'popular' | 'newest' | 'price-low' | 'price-high' | 'rating') => {
+    setIsTransitioning(true);
+    setSortBy(val);
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 250);
+  };
+
+  const handleManualRefresh = () => {
+    simulateDataFetch(450);
+  };
+
+  const isLoading = isLoadingProducts || isTransitioning;
 
   const filteredProducts = useMemo(() => {
     return products
@@ -103,7 +132,7 @@ export const ShopPage: React.FC = () => {
             <select
               aria-label="Filter by price range"
               value={priceFilter}
-              onChange={(e) => setPriceFilter(e.target.value as any)}
+              onChange={(e) => handlePriceFilterChange(e.target.value as any)}
               className="px-3 py-2.5 rounded-xl bg-neutral-900 border border-neutral-800 text-xs text-neutral-300 focus:outline-none focus:border-indigo-500 cursor-pointer"
             >
               <option value="all">All Prices</option>
@@ -116,7 +145,7 @@ export const ShopPage: React.FC = () => {
             <select
               aria-label="Sort products"
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as any)}
+              onChange={(e) => handleSortChange(e.target.value as any)}
               className="px-3 py-2.5 rounded-xl bg-neutral-900 border border-neutral-800 text-xs text-neutral-300 focus:outline-none focus:border-indigo-500 cursor-pointer"
             >
               <option value="popular">Most Popular</option>
@@ -137,7 +166,7 @@ export const ShopPage: React.FC = () => {
                 key={cat}
                 type="button"
                 onClick={() => handleCategorySelect(cat)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                   isSelected
                     ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
                     : 'bg-neutral-900 text-neutral-400 hover:text-white hover:bg-neutral-800 border border-neutral-800'
@@ -152,18 +181,29 @@ export const ShopPage: React.FC = () => {
 
       {/* Active Filter Indicators & Product Count */}
       <div className="flex items-center justify-between text-xs text-neutral-400">
-        <div>
-          Showing <strong className="text-white font-mono">{filteredProducts.length}</strong> products
-          {selectedCategory !== 'All Products' && (
-            <span> in <span className="text-indigo-300 font-semibold">{selectedCategory}</span></span>
-          )}
+        <div className="flex items-center gap-3">
+          <div>
+            Showing <strong className="text-white font-mono">{filteredProducts.length}</strong> products
+            {selectedCategory !== 'All Products' && (
+              <span> in <span className="text-indigo-300 font-semibold">{selectedCategory}</span></span>
+            )}
+          </div>
+          <button
+            type="button"
+            onClick={handleManualRefresh}
+            title="Simulate data fetch"
+            className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-[11px] text-neutral-400 hover:text-neutral-200 transition-colors cursor-pointer"
+          >
+            <RotateCw className={`w-3 h-3 ${isLoading ? 'animate-spin text-indigo-400' : ''}`} />
+            <span>{isLoading ? 'Fetching...' : 'Simulate Fetch'}</span>
+          </button>
         </div>
 
         {(searchQuery || selectedCategory !== 'All Products' || priceFilter !== 'all') && (
           <button
             type="button"
             onClick={resetFilters}
-            className="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1"
+            className="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1 cursor-pointer"
           >
             <X className="w-3.5 h-3.5" />
             <span>Reset filters</span>
@@ -171,8 +211,10 @@ export const ShopPage: React.FC = () => {
         )}
       </div>
 
-      {/* Products Grid */}
-      {filteredProducts.length === 0 ? (
+      {/* Products Grid / Skeleton Loading State */}
+      {isLoading ? (
+        <ProductGridSkeleton count={8} />
+      ) : filteredProducts.length === 0 ? (
         <div className="p-16 text-center rounded-2xl bg-neutral-900/50 border border-neutral-800 space-y-3">
           <p className="text-base font-bold text-white">No products found</p>
           <p className="text-xs text-neutral-400 max-w-sm mx-auto">
@@ -181,7 +223,7 @@ export const ShopPage: React.FC = () => {
           <button
             type="button"
             onClick={resetFilters}
-            className="px-5 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white"
+            className="px-5 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white cursor-pointer"
           >
             Clear all filters
           </button>

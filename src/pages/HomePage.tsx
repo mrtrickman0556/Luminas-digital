@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { ProductCard } from '../components/ProductCard';
+import { ProductGridSkeleton } from '../components/ProductGridSkeleton';
 import { FAQS } from '../data/faqs';
 import { PRODUCT_CATEGORIES } from '../data/initialProducts';
 
@@ -29,7 +30,8 @@ export const HomePage: React.FC = () => {
     addToCart,
     reviews,
     formatPrice,
-    subscribeNewsletter
+    subscribeNewsletter,
+    isLoadingProducts
   } = useStore();
 
   const [expandedFaq, setExpandedFaq] = useState<string | null>(FAQS[0]?.id || null);
@@ -241,11 +243,15 @@ export const HomePage: React.FC = () => {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredProducts.map(product => (
-            <ProductCard key={product.id} product={product} featured />
-          ))}
-        </div>
+        {isLoadingProducts ? (
+          <ProductGridSkeleton count={4} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredProducts.map(product => (
+              <ProductCard key={product.id} product={product} featured />
+            ))}
+          </div>
+        )}
       </section>
 
       {/* 4. BEST SELLERS SECTION */}
@@ -277,11 +283,15 @@ export const HomePage: React.FC = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {bestSellers.map(product => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          {isLoadingProducts ? (
+            <ProductGridSkeleton count={4} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" />
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {bestSellers.map(product => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

@@ -3,9 +3,10 @@ import { BookOpen, Star, Sparkles, CheckCircle2, ArrowRight, Eye, ShoppingBag, S
 import { useStore } from '../context/StoreContext';
 import { EbookMockup } from '../components/EbookMockup';
 import { ProductCard } from '../components/ProductCard';
+import { ProductGridSkeleton } from '../components/ProductGridSkeleton';
 
 export const EbooksPage: React.FC = () => {
-  const { products, openSampleModal, addToCart, navigateToProduct, formatPrice } = useStore();
+  const { products, openSampleModal, addToCart, navigateToProduct, formatPrice, isLoadingProducts } = useStore();
 
   const ebooks = products.filter(p => p.category === 'E-books');
   const featuredEbook =
@@ -162,11 +163,15 @@ export const EbooksPage: React.FC = () => {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {ebooks.map(product => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {isLoadingProducts ? (
+          <ProductGridSkeleton count={3} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {ebooks.map(product => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );

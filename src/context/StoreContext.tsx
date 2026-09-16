@@ -133,6 +133,13 @@ interface StoreContextType {
   exportStoreBackup: () => void;
   importStoreBackup: (jsonData: string) => { success: boolean; message: string };
   newsletterSubscribers: NewsletterSubscriber[];
+
+  // Data Fetching & Skeleton Loading States
+  isLoadingProducts: boolean;
+  setIsLoadingProducts: (loading: boolean) => void;
+  isLoadingProductDetail: boolean;
+  setIsLoadingProductDetail: (loading: boolean) => void;
+  simulateDataFetch: (durationMs?: number) => Promise<void>;
 }
 
 const DEFAULT_COUPONS: Coupon[] = [
@@ -191,6 +198,20 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     }
     return INITIAL_PRODUCTS;
   });
+
+  // Data Fetching & Loading States
+  const [isLoadingProducts, setIsLoadingProducts] = useState<boolean>(false);
+  const [isLoadingProductDetail, setIsLoadingProductDetail] = useState<boolean>(false);
+
+  const simulateDataFetch = (durationMs = 600): Promise<void> => {
+    setIsLoadingProducts(true);
+    return new Promise(resolve => {
+      setTimeout(() => {
+        setIsLoadingProducts(false);
+        resolve();
+      }, durationMs);
+    });
+  };
 
   // Save products on change
   useEffect(() => {
@@ -448,9 +469,14 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
   // Navigation helpers
   const navigateToProduct = (slug: string) => {
+    setIsLoadingProductDetail(true);
     setSelectedProductSlug(slug);
     setActivePage('product-detail');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Smooth transition to simulate data fetching and show skeleton
+    setTimeout(() => {
+      setIsLoadingProductDetail(false);
+    }, 380);
   };
 
   const navigateToOrder = (orderId: string) => {
@@ -759,7 +785,12 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         clearOrders,
         exportStoreBackup,
         importStoreBackup,
-        newsletterSubscribers: subscribers
+        newsletterSubscribers: subscribers,
+        isLoadingProducts,
+        setIsLoadingProducts,
+        isLoadingProductDetail,
+        setIsLoadingProductDetail,
+        simulateDataFetch
       }}
     >
       {children}

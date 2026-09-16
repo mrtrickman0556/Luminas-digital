@@ -23,6 +23,7 @@ import { EbookMockup } from '../components/EbookMockup';
 import { PromptPackMockup } from '../components/PromptPackMockup';
 import { TemplateMockup } from '../components/TemplateMockup';
 import { ProductCard } from '../components/ProductCard';
+import { ProductDetailSkeleton } from '../components/ProductDetailSkeleton';
 
 export const ProductDetailPage: React.FC = () => {
   const {
@@ -37,7 +38,8 @@ export const ProductDetailPage: React.FC = () => {
     reviews,
     addReview,
     showToast,
-    setActivePage
+    setActivePage,
+    isLoadingProductDetail
   } = useStore();
 
   // Find product by slug or default to first
@@ -52,6 +54,11 @@ export const ProductDetailPage: React.FC = () => {
   const [newReviewComment, setNewReviewComment] = useState('');
   const [newReviewRating, setNewReviewRating] = useState(5);
   const [showReviewForm, setShowReviewForm] = useState(false);
+
+  // Perceived performance loading skeleton state
+  if (isLoadingProductDetail) {
+    return <ProductDetailSkeleton />;
+  }
 
   if (!product) {
     return (

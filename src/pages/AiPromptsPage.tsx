@@ -2,13 +2,26 @@ import React, { useState } from 'react';
 import { Sparkles, Terminal, Copy, Check, Bot, Cpu, ArrowRight, Eye, ShoppingBag, Search } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { ProductCard } from '../components/ProductCard';
+import { ProductGridSkeleton } from '../components/ProductGridSkeleton';
 import { AI_PROMPT_SUBCATEGORIES } from '../data/initialProducts';
 
 export const AiPromptsPage: React.FC = () => {
-  const { products, openPromptModal, addToCart, formatPrice } = useStore();
+  const { products, openPromptModal, addToCart, formatPrice, isLoadingProducts } = useStore();
 
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>('All AI Prompts');
   const [activeCopied, setActiveCopied] = useState<string | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const handleSubcategoryChange = (sub: string) => {
+    if (selectedSubcategory === sub) return;
+    setIsTransitioning(true);
+    setSelectedSubcategory(sub);
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 280);
+  };
+
+  const isLoading = isLoadingProducts || isTransitioning;
 
   const promptProducts = products.filter(
     p => p.category === 'AI Prompts' || p.category === 'Prompt Packs' || p.aiDetails !== undefined
@@ -110,8 +123,8 @@ export const AiPromptsPage: React.FC = () => {
               <button
                 key={sub}
                 type="button"
-                onClick={() => setSelectedSubcategory(sub)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                onClick={() => handleSubcategoryChange(sub)}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                   isSelected
                     ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
                     : 'bg-neutral-900 text-neutral-400 hover:text-white hover:bg-neutral-800 border border-neutral-800'
@@ -124,12 +137,16 @@ export const AiPromptsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Prompt Packs Products Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredPromptProducts.map(product => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      {/* Prompt Packs Products Grid / Skeleton Loading */}
+      {isLoading ? (
+        <ProductGridSkeleton count={3} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" />
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredPromptProducts.map(product => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
 
       {/* How to use AI Prompts Information box */}
       <section className="p-8 sm:p-10 rounded-3xl bg-neutral-900/50 border border-neutral-800 space-y-6">
