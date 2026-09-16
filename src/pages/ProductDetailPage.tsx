@@ -24,6 +24,7 @@ import { PromptPackMockup } from '../components/PromptPackMockup';
 import { TemplateMockup } from '../components/TemplateMockup';
 import { ProductCard } from '../components/ProductCard';
 import { ProductDetailSkeleton } from '../components/ProductDetailSkeleton';
+import { SlashPromptsViewer } from '../components/SlashPromptsViewer';
 
 export const ProductDetailPage: React.FC = () => {
   const {
@@ -156,17 +157,17 @@ export const ProductDetailPage: React.FC = () => {
           </div>
 
           {/* Quick preview modal trigger */}
-          <div className="mt-4 flex items-center justify-center gap-3">
-            {product.category === 'E-books' && product.ebookDetails && (
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+            {product.ebookDetails && (
               <button
                 type="button"
                 onClick={() => openSampleModal(product)}
                 className="px-4 py-2.5 rounded-xl text-xs font-semibold bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-800 hover:border-neutral-700 flex items-center gap-2 transition-colors cursor-pointer"
               >
-                <BookOpen className="w-4 h-4 text-blue-400" />
+                <BookOpen className="w-4 h-4 text-cyan-400" />
                 <span>
                   {product.ebookDetails.pdfPages
-                    ? 'Open Interactive 8-Page PDF Viewer'
+                    ? `Open ${product.ebookDetails.pdfPages.length}-Page PDF Viewer`
                     : 'Read Free Sample Chapter'}
                 </span>
               </button>
@@ -175,7 +176,7 @@ export const ProductDetailPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => openPromptModal(product)}
-                className="px-4 py-2.5 rounded-xl text-xs font-semibold bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-800 flex items-center gap-2 transition-colors"
+                className="px-4 py-2.5 rounded-xl text-xs font-semibold bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-800 flex items-center gap-2 transition-colors cursor-pointer"
               >
                 <Terminal className="w-4 h-4 text-indigo-400" />
                 <span>Test Prompts in Interactive Playground</span>
@@ -456,6 +457,21 @@ export const ProductDetailPage: React.FC = () => {
                     </div>
                   ))}
                 </div>
+              </div>
+            )}
+
+            {/* If product is the 100 Slash Prompts product, embed the full interactive viewer */}
+            {product.id === 'prod-chatgpt-100-slash' && (
+              <div className="mt-10 pt-8 border-t border-neutral-800 space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xl font-bold font-display text-white">
+                    Interactive 100 Slash Prompts Cheatsheet Vault
+                  </h3>
+                  <span className="text-xs font-mono text-cyan-400">
+                    Live 1-Click Copy Ready
+                  </span>
+                </div>
+                <SlashPromptsViewer showHeroBanner={false} />
               </div>
             )}
           </div>

@@ -14,7 +14,8 @@ import {
   Info,
   Globe,
   ArrowRight,
-  FileText
+  FileText,
+  Flame
 } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { LiveSearchDropdown } from './LiveSearchDropdown';
@@ -29,12 +30,15 @@ export const Navbar: React.FC = () => {
     currency,
     setCurrency,
     setActiveCategoryFilter,
-    settings
+    settings,
+    globalSearchQuery,
+    setGlobalSearchQuery,
+    navigateToRequirement
   } = useStore();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [navSearchOpen, setNavSearchOpen] = useState(false);
-  const [navSearchQuery, setNavSearchQuery] = useState('');
+  const [navSearchQuery, setNavSearchQuery] = useState(globalSearchQuery || '');
 
   const handleNavClick = (page: string, categoryFilter?: string) => {
     setActivePage(page);
@@ -156,6 +160,34 @@ export const Navbar: React.FC = () => {
             >
               <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
               <span>AI Prompts</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setActivePage('ai-prompts');
+                setTimeout(() => {
+                  const el = document.querySelector('#pdf-books-prompts-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+              }}
+              className="px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 text-emerald-300 hover:text-white hover:bg-neutral-800/50"
+            >
+              <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Prompt PDF Books ($20)</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setActivePage('ai-prompts');
+                setTimeout(() => {
+                  const el = document.querySelector('#trending-slash-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+              }}
+              className="px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 text-cyan-300 hover:text-white hover:bg-neutral-800/50"
+            >
+              <Flame className="w-3.5 h-3.5 text-cyan-400" />
+              <span>100 Prompts</span>
             </button>
             <button
               type="button"
@@ -311,6 +343,18 @@ export const Navbar: React.FC = () => {
             </select>
           </div>
 
+          {/* Mobile search bar */}
+          <div className="pb-3 border-b border-neutral-800">
+            <LiveSearchDropdown
+              searchQuery={navSearchQuery}
+              onSearchChange={setNavSearchQuery}
+              onSelectCategory={(cat) => {
+                handleNavClick('shop', cat);
+              }}
+              placeholder="Search products, prompts, requirements..."
+            />
+          </div>
+
           <button
             type="button"
             onClick={() => handleNavClick('home')}
@@ -357,6 +401,46 @@ export const Navbar: React.FC = () => {
             </span>
             <span className="text-[10px] bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-full font-bold">
               3,500+
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setActivePage('ai-prompts');
+              setMobileMenuOpen(false);
+              setTimeout(() => {
+                const el = document.querySelector('#pdf-books-prompts-section');
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }, 120);
+            }}
+            className="w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between text-emerald-300 hover:bg-neutral-800"
+          >
+            <span className="flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-emerald-400" />
+              Prompt PDF Books ($20)
+            </span>
+            <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-bold">
+              $20 Each
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setActivePage('ai-prompts');
+              setMobileMenuOpen(false);
+              setTimeout(() => {
+                const el = document.querySelector('#trending-slash-section');
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }, 120);
+            }}
+            className="w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between text-cyan-300 hover:bg-neutral-800"
+          >
+            <span className="flex items-center gap-2">
+              <Flame className="w-4 h-4 text-cyan-400" />
+              Trending '/' Prompts
+            </span>
+            <span className="text-[10px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full font-bold">
+              100 Cheatsheet
             </span>
           </button>
           <button

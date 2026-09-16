@@ -13,13 +13,19 @@ import {
   ChevronDown,
   TrendingUp,
   Award,
-  Users
+  Users,
+  Flame,
+  Search,
+  Palette
 } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { ProductCard } from '../components/ProductCard';
 import { ProductGridSkeleton } from '../components/ProductGridSkeleton';
 import { FAQS } from '../data/faqs';
 import { PRODUCT_CATEGORIES } from '../data/initialProducts';
+import { LiveSearchDropdown } from '../components/LiveSearchDropdown';
+import { STORE_SECTIONS } from '../data/searchSections';
+import { PdfBooksPromptsSection } from '../components/PdfBooksPromptsSection';
 
 export const HomePage: React.FC = () => {
   const {
@@ -31,9 +37,14 @@ export const HomePage: React.FC = () => {
     reviews,
     formatPrice,
     subscribeNewsletter,
-    isLoadingProducts
+    isLoadingProducts,
+    navigateToSection,
+    navigateToRequirement,
+    globalSearchQuery,
+    setGlobalSearchQuery
   } = useStore();
 
+  const [heroSearchQuery, setHeroSearchQuery] = useState(globalSearchQuery || '');
   const [expandedFaq, setExpandedFaq] = useState<string | null>(FAQS[0]?.id || null);
   const [emailInput, setEmailInput] = useState('');
   const [newsStatus, setNewsStatus] = useState('');
@@ -86,8 +97,68 @@ export const HomePage: React.FC = () => {
             Practical e-books, AI prompts, templates, guides and digital resources designed to help you work smarter and build better.
           </p>
 
+          {/* Connected Live Search to Sections & Products */}
+          <div className="mt-8 max-w-xl mx-auto space-y-3">
+            <LiveSearchDropdown
+              searchQuery={heroSearchQuery}
+              onSearchChange={setHeroSearchQuery}
+              onSelectCategory={(cat) => {
+                setActiveCategoryFilter(cat);
+                setActivePage('shop');
+              }}
+              placeholder="Search requirements (e.g. '100 chatgpt prompts', 'trading', 'ebooks')..."
+              className="w-full text-left"
+            />
+
+            {/* Quick-Jump Requirement Chips */}
+            <div className="flex flex-wrap items-center justify-center gap-1.5 text-xs">
+              <span className="text-[11px] text-neutral-400 font-mono">Quick Requirements:</span>
+              <button
+                type="button"
+                onClick={() => navigateToRequirement('editing')}
+                className="px-2.5 py-1 rounded-lg bg-indigo-500/15 hover:bg-indigo-500/25 text-indigo-300 border border-indigo-500/30 font-medium transition-colors flex items-center gap-1 cursor-pointer"
+              >
+                <Palette className="w-3 h-3 text-indigo-400" />
+                <span>50 Editing Prompts</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => navigateToRequirement('100 trending chatgpt prompts')}
+                className="px-2.5 py-1 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/30 font-medium transition-colors flex items-center gap-1 cursor-pointer"
+              >
+                <Flame className="w-3 h-3 text-cyan-400" />
+                <span>100 Slash Prompts</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => navigateToRequirement('trading')}
+                className="px-2.5 py-1 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-300 border border-neutral-800 transition-colors cursor-pointer"
+              >
+                Trading AI Prompts
+              </button>
+              <button
+                type="button"
+                onClick={() => navigateToRequirement('financial playbook')}
+                className="px-2.5 py-1 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-300 border border-neutral-800 transition-colors cursor-pointer"
+              >
+                Financial Playbook
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  const el = document.querySelector('#featured-products');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-2.5 py-1 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-amber-300 border border-neutral-800 transition-colors flex items-center gap-1 cursor-pointer"
+              >
+                <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                <span>Featured Picks</span>
+              </button>
+            </div>
+          </div>
+
           {/* CTAs */}
-          <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 max-w-md mx-auto">
+          <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 max-w-md mx-auto">
             <button
               type="button"
               onClick={() => {
@@ -215,8 +286,60 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. FEATURED PRODUCTS SECTION */}
+      {/* 2.5 SPOTLIGHT: 100 TRENDING CHATGPT '/' PROMPTS SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative overflow-hidden rounded-3xl p-1 bg-gradient-to-r from-cyan-500/30 via-indigo-500/30 to-emerald-500/30">
+          <div className="bg-neutral-950/90 rounded-[22px] p-6 sm:p-8 border border-cyan-500/30 flex flex-col lg:flex-row lg:items-center justify-between gap-6 backdrop-blur-xl">
+            <div className="space-y-3 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
+                <Flame className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+                <span>HOT RELEASE • 100 CHATGPT '/' PROMPTS SECTION</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold font-display text-white tracking-tight">
+                Trading, Coding, Writing & Productivity Slash Cheatsheet
+              </h2>
+              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+                Slash-style rapid prompt commands with 1-click prompt copying and complete 4-page guide breakdown. Directly search commands like <code className="text-cyan-300 bg-neutral-900 px-1.5 py-0.5 rounded border border-neutral-800 font-mono text-xs">/plan</code>, <code className="text-indigo-300 bg-neutral-900 px-1.5 py-0.5 rounded border border-neutral-800 font-mono text-xs">/debug</code>, <code className="text-emerald-300 bg-neutral-900 px-1.5 py-0.5 rounded border border-neutral-800 font-mono text-xs">/eli5</code>, or trading protocols.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-3 pt-1">
+                <span className="text-[11px] font-mono text-neutral-400">Includes:</span>
+                {['Productivity', 'Writing', 'Coding', 'Business', 'Trading & Finance', 'Learning'].map(tag => (
+                  <span key={tag} className="px-2 py-0.5 rounded-md bg-neutral-900 border border-neutral-800 text-[10px] font-mono text-neutral-300">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  const sec = STORE_SECTIONS.find(s => s.id === 'trending-slash-prompts');
+                  if (sec) navigateToSection(sec);
+                }}
+                className="px-6 py-3.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-500 hover:bg-cyan-400 text-black flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 transition-all cursor-pointer hover:scale-[1.02]"
+              >
+                <Flame className="w-4 h-4 text-black" />
+                <span>Open 100 Prompts Section</span>
+                <ArrowRight className="w-4 h-4 text-black" />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => navigateToProduct('100-trending-chatgpt-slash-prompts-vault')}
+                className="px-6 py-3.5 rounded-xl text-xs sm:text-sm font-semibold bg-neutral-900 hover:bg-neutral-800 text-white border border-neutral-800 flex items-center justify-center gap-2 transition-all cursor-pointer"
+              >
+                <span>View Product Details ($14.99)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. FEATURED PRODUCTS SECTION */}
+      <section id="featured-products" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
           <div>
             <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">
@@ -255,7 +378,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 4. BEST SELLERS SECTION */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="best-sellers" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
         <div className="p-8 sm:p-12 rounded-3xl bg-neutral-900/50 border border-neutral-800">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
             <div>
@@ -340,6 +463,11 @@ export const HomePage: React.FC = () => {
             </p>
           </div>
         </div>
+      </section>
+
+      {/* 5.5 OFFICIAL $20 PROMPT PDF BOOKS SECTION */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <PdfBooksPromptsSection />
       </section>
 
       {/* 6. LIMITED-TIME BUNDLE CONVERSION OFFER */}

@@ -13,6 +13,7 @@ import {
 import { INITIAL_PRODUCTS } from '../data/initialProducts';
 import { REVIEWS } from '../data/reviews';
 import { downloadProductFile } from '../utils/fileDownloader';
+import { StoreSection, STORE_SECTIONS } from '../data/searchSections';
 
 export const DEFAULT_STORE_SETTINGS: StoreSettings = {
   storeName: 'Lumina Digital',
@@ -140,6 +141,15 @@ interface StoreContextType {
   isLoadingProductDetail: boolean;
   setIsLoadingProductDetail: (loading: boolean) => void;
   simulateDataFetch: (durationMs?: number) => Promise<void>;
+
+  // Product Purchase State
+  isProductPurchased: (productId: string) => boolean;
+
+  // Global Search & Sections / Requirements Navigation
+  globalSearchQuery: string;
+  setGlobalSearchQuery: (query: string) => void;
+  navigateToSection: (section: StoreSection) => void;
+  navigateToRequirement: (requirement: string) => void;
 }
 
 const DEFAULT_COUPONS: Coupon[] = [
@@ -192,7 +202,35 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [products, setProducts] = useState<Product[]>(() => {
     try {
       const saved = localStorage.getItem('lumina_products');
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed: Product[] = JSON.parse(saved);
+        // Ensure built-in products reflect latest prices (e.g. $20) and category (E-books)
+        const updated = parsed.map((p: Product) => {
+          const match = INITIAL_PRODUCTS.find(ip => ip.id === p.id);
+          return match
+            ? {
+                ...p,
+                title: match.title,
+                subtitle: match.subtitle,
+                price: match.price,
+                originalPrice: match.originalPrice,
+                category: match.category,
+                tags: match.tags,
+                format: match.format,
+                pagesOrCount: match.pagesOrCount
+              }
+            : p;
+        });
+        const existingIds = new Set(updated.map((p: Product) => p.id));
+        const missing = INITIAL_PRODUCTS.filter(p => !existingIds.has(p.id));
+        const merged = [...updated, ...missing];
+        try {
+          localStorage.setItem('lumina_products', JSON.stringify(merged));
+        } catch {
+          // ignore
+        }
+        return merged;
+      }
     } catch {
       // ignore
     }
@@ -202,6 +240,68 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   // Data Fetching & Loading States
   const [isLoadingProducts, setIsLoadingProducts] = useState<boolean>(false);
   const [isLoadingProductDetail, setIsLoadingProductDetail] = useState<boolean>(false);
+
+  // Global Search State & Section Navigation
+  const [globalSearchQuery, setGlobalSearchQuery] = useState<string>('');
+
+  const navigateToSection = (section: StoreSection) => {
+    setActivePage(section.page);
+    if (section.categoryFilter) {
+      setActiveCategoryFilter(section.categoryFilter);
+    }
+    if (section.sectionAnchor) {
+      setTimeout(() => {
+        const el = document.querySelector(section.sectionAnchor!);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 120);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const navigateToRequirement = (requirement: string) => {
+    const q = requirement.trim();
+    setGlobalSearchQuery(q);
+    const qLower = q.toLowerCase();
+
+    // Check if query points to trending slash prompt commands
+    if (
+      qLower.includes('slash') ||
+      qLower.includes('trending') ||
+      qLower.includes('trading') ||
+      qLower.startsWith('/') ||
+      qLower.includes('prompt command')
+    ) {
+      setActivePage('ai-prompts');
+      setTimeout(() => {
+        const el = document.querySelector('#trending-slash-section');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 120);
+      return;
+    }
+
+    // Check if query is looking for FAQ, licensing or support
+    if (qLower.includes('faq') || qLower.includes('refund') || qLower.includes('license') || qLower.includes('support')) {
+      setActivePage('faq');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    // Check if query is looking specifically for e-books
+    if (qLower.includes('ebook') || qLower.includes('book') || qLower.includes('pdf guide')) {
+      setActivePage('ebooks');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    // Default to shop catalog filtered by requirement
+    setActivePage('shop');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const simulateDataFetch = (durationMs = 600): Promise<void> => {
     setIsLoadingProducts(true);
@@ -652,6 +752,32 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     }
   };
 
+  // Product Purchase Verification
+  const isProductPurchased = (productId: string): boolean => {
+    return orders.some(order =>
+      order.items.some(item => {
+        if (item.productId === productId) return true;
+        // Alias support for the 100 slash prompts product ID
+        if (
+          (productId === 'prod-chatgpt-100-slash' || productId === 'prod-trending-100-slash-prompts') &&
+          (item.productId === 'prod-chatgpt-100-slash' || item.productId === 'prod-trending-100-slash-prompts')
+        ) {
+          return true;
+        }
+        // The 150 prompt Duo Bundle unlocks both 50 and 100 prompt books
+        if (
+          item.productId === 'prod-prompts-duo-bundle-20' &&
+          (productId === 'prod-chatgpt-100-slash' ||
+            productId === 'prod-trending-100-slash-prompts' ||
+            productId === 'prod-editing-designing-50-slash')
+        ) {
+          return true;
+        }
+        return false;
+      })
+    );
+  };
+
   // Product CRUD
   const addProduct = (prodData: Omit<Product, 'id'>) => {
     const newProd: Product = {
@@ -790,7 +916,12 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         setIsLoadingProducts,
         isLoadingProductDetail,
         setIsLoadingProductDetail,
-        simulateDataFetch
+        simulateDataFetch,
+        isProductPurchased,
+        globalSearchQuery,
+        setGlobalSearchQuery,
+        navigateToSection,
+        navigateToRequirement
       }}
     >
       {children}

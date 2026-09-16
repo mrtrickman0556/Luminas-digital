@@ -1,15 +1,25 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Search, SlidersHorizontal, ArrowUpDown, X, Filter, Sparkles, RotateCw } from 'lucide-react';
+import { Search, SlidersHorizontal, ArrowUpDown, X, Filter, Sparkles, RotateCw, Flame, ArrowRight, Zap } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { ProductCard } from '../components/ProductCard';
 import { ProductGridSkeleton } from '../components/ProductGridSkeleton';
 import { PRODUCT_CATEGORIES } from '../data/initialProducts';
 import { LiveSearchDropdown } from '../components/LiveSearchDropdown';
+import { STORE_SECTIONS } from '../data/searchSections';
 
 export const ShopPage: React.FC = () => {
-  const { products, activeCategoryFilter, setActiveCategoryFilter, isLoadingProducts, simulateDataFetch } = useStore();
+  const {
+    products,
+    activeCategoryFilter,
+    setActiveCategoryFilter,
+    isLoadingProducts,
+    simulateDataFetch,
+    globalSearchQuery,
+    setGlobalSearchQuery,
+    navigateToSection
+  } = useStore();
 
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(globalSearchQuery || '');
   const [selectedCategory, setSelectedCategory] = useState<string>(activeCategoryFilter || 'All Products');
   const [priceFilter, setPriceFilter] = useState<'all' | 'under20' | '20to30' | 'above30'>('all');
   const [sortBy, setSortBy] = useState<'popular' | 'newest' | 'price-low' | 'price-high' | 'rating'>('popular');
@@ -21,6 +31,13 @@ export const ShopPage: React.FC = () => {
       setSelectedCategory(activeCategoryFilter);
     }
   }, [activeCategoryFilter]);
+
+  // Keep search synced with globalSearchQuery
+  useEffect(() => {
+    if (globalSearchQuery !== undefined) {
+      setSearchQuery(globalSearchQuery);
+    }
+  }, [globalSearchQuery]);
 
   const handleCategorySelect = (cat: string) => {
     if (selectedCategory === cat) return;
@@ -210,6 +227,43 @@ export const ShopPage: React.FC = () => {
           </button>
         )}
       </div>
+
+      {/* Relevant Section Suggestion Banner */}
+      {searchQuery && (() => {
+        const qClean = searchQuery.toLowerCase().trim();
+        const matchedSec = STORE_SECTIONS.find(s =>
+          s.title.toLowerCase().includes(qClean) ||
+          s.keywords.some(k => k.includes(qClean) || qClean.includes(k))
+        );
+        if (!matchedSec) return null;
+
+        return (
+          <div className="p-4 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-indigo-950/40 to-neutral-900 border border-cyan-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 animate-in fade-in">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 shrink-0">
+                <Zap className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-mono font-bold text-cyan-400 uppercase">Related Store Section</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 font-mono">{matchedSec.badge}</span>
+                </div>
+                <h3 className="text-sm font-bold text-white mt-0.5">{matchedSec.title}</h3>
+                <p className="text-xs text-neutral-400">{matchedSec.description}</p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => navigateToSection(matchedSec)}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-400 text-black transition-all shrink-0 cursor-pointer shadow-md shadow-cyan-500/20"
+            >
+              <span>Jump to Section</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        );
+      })()}
 
       {/* Products Grid / Skeleton Loading State */}
       {isLoading ? (

@@ -527,6 +527,463 @@ Keep growing, keep learning, and keep shining! ✨
     }
   },
   {
+    id: 'prod-chatgpt-100-slash',
+    slug: '100-trending-chatgpt-slash-prompts',
+    title: '100 Trending ChatGPT "/" Prompts for Personal Help & Productivity',
+    subtitle: 'Official 4-Page PDF Cheatsheet & Master Guide • Personal Help, Writing, Coding, Study & Business',
+    shortDescription: '100 high-performance slash prompt commands grouped across 8 categories: Personal Help & Lifestyle, Productivity, Writing, Study & Exam Prep, Coding, Business, Creative, and Marketing.',
+    fullDescription: `Stop writing long, repetitive paragraphs every time you ask ChatGPT for help. The slash-command paradigm turns AI into an instant, high-precision command line for creators, students, developers, and founders.
+
+"100 Trending ChatGPT '/' Prompts (Personal Help & Productivity)" provides a clean, 4-page quick-reference PDF cheatsheet and digital prompt vault containing 100 battle-tested slash-style prompt commands.
+
+Grouped by Category:
+• Personal Help & Lifestyle (1–12): /motivate, /journal, /advice, /mealplan, /workout, /budget, /travel, /giftideas, /selfcare, /booklist, /skill, /decisionhelp
+• Productivity (13–24): /plan, /prioritize, /schedule, /checklist, /summarize, /decide, /goals, /habit, /timeblock, /delegate, /review, /focus
+• Writing (25–37): /rewrite, /shorten, /expand, /tone, /proofread, /outline, /email, /essay, /story, /headline, /caption, /bio, /letter
+• Study & Exam Prep (38–50): /explain, /eli5, /quiz, /notes, /flashcards, /mnemonics, /examprep, /compare, /define, /steps, /practice, /revise, /answer
+• Coding (51–62): /code, /debug, /explaincode, /optimize, /comment, /convert, /test, /refactor, /regex, /sql, /api, /architecture
+• Business & Career (63–75): /resume, /coverletter, /interview, /pitch, /swot, /strategy, /negotiate, /proposal, /marketresearch, /branding, /okr, /report, /meeting
+• Creative (76–87): /poem, /songidea, /namegen, /worldbuild, /character, /plot, /dialogue, /joke, /riddle, /metaphor, /script, /artprompt
+• Marketing & Social (88–100): /hashtags, /adcopy, /socialpost, /emailmarketing, /seotitle, /productdesc, /brandvoice, /contentcalendar, /influencer, /landingpage, /testimonial, /videoscript, /analytics`,
+    price: 20,
+    originalPrice: 40,
+    category: 'E-books',
+    tags: ['E-books', 'PDF Book', 'AI Prompts', 'Trending Prompts', 'ChatGPT', 'Prompt Packs', 'Trending', 'Best Seller', 'Productivity', 'Personal Help', 'ChatGPT Prompts'],
+    format: 'PDF',
+    pagesOrCount: '4-Page Master PDF Book (100 Prompts)',
+    rating: 4.99,
+    reviewCount: 382,
+    isBestSeller: true,
+    isNewRelease: true,
+    isFeatured: true,
+    coverGradient: {
+      from: '#06b6d4', // Cyan
+      to: '#083344',
+      accent: '#22d3ee'
+    },
+    whatsIncluded: [
+      'Complete 4-Page Master PDF Cheatsheet ("100 Trending ChatGPT \'/\' Prompts")',
+      'All 100 Slash-Style Commands grouped into 8 High-Impact Categories',
+      'Interactive 1-Click Copy Web Vault with Search and Filtering',
+      'Custom Instructions Setup Guide for ChatGPT Plus, Claude & Gemini',
+      'Printable High-Contrast Desk Reference (A4 & US Letter)'
+    ],
+    whoItsFor: [
+      'Students and exam takers wanting instant /eli5, /quiz, /notes, and /flashcards recall',
+      'Writers and creators needing rapid /rewrite, /shorten, and /headline variations',
+      'Developers using /code, /debug, /refactor, and /regex shortcuts',
+      'Founders and marketers looking to automate /pitch, /swot, and /adcopy tasks'
+    ],
+    keyBenefits: [
+      'Cut prompting time by 80% using short slash-syntax commands',
+      'Never stare at a blank prompt box wondering what to ask',
+      'Pre-calibrated prompts ensure concise, high-signal AI responses without robotic fluff',
+      'Tested and 100% compatible with GPT-4o, Claude 3.5 Sonnet, and Gemini'
+    ],
+    features: [
+      'Authentic 4-page reference layout matching the original publication',
+      'Interactive live search and one-click copy tool',
+      'Works with both free and paid AI chat assistants',
+      'Includes downloadable high-resolution printable PDF and digital text vault'
+    ],
+    fileSize: '2.4 MB',
+    downloadFilename: '100-Trending-ChatGPT-Slash-Prompts.pdf',
+    downloadContent: `===================================================================
+100 TRENDING CHATGPT "/" PROMPTS
+A quick-reference list of slash-style prompt commands, grouped by category.
+Published by Lumina Digital
+Format: Digital PDF & Interactive Quick-Reference Cheatsheet
+===================================================================
+
+[ PAGE 1 ]
+-------------------------------------------------------------------
+Productivity
+● 1. /plan — step-by-step plan for a task
+● 2. /prioritize — rank tasks by urgency/importance
+● 3. /schedule — build a daily/weekly schedule
+● 4. /checklist — turn info into an actionable checklist
+● 5. /summarize — condense into key points
+● 6. /decide — compare options, recommend one
+● 7. /goals — break a goal into SMART objectives
+● 8. /habit — build a habit-forming plan
+● 9. /timeblock — time-blocked daily schedule
+● 10. /delegate — suggest what to hand off
+● 11. /review — review week/month, suggest fixes
+● 12. /focus — distraction-free work routine
+
+Writing
+● 13. /rewrite — clearer/simpler version
+● 14. /shorten — cut to half the length
+● 15. /expand — grow an idea into a paragraph
+● 16. /tone — rewrite in a chosen tone
+● 17. /proofread — check grammar/spelling
+● 18. /outline — structure for a topic
+● 19. /email — draft a professional email
+● 20. /essay — write an essay on a topic
+● 21. /story — short story on a theme
+● 22. /headline — catchy headline options
+● 23. /caption — social media caption
+● 24. /bio — short personal/professional bio
+● 25. /letter — formal letter draft
+
+Study & Exam Prep
+● 26. /explain — simplify a concept
+● 27. /eli5 — explain like I'm five
+● 28. /quiz — quiz questions on a topic
+● 29. /notes — turn text into study notes
+
+
+[ PAGE 2 ]
+-------------------------------------------------------------------
+Study & Exam Prep (Continued)
+● 30. /flashcards — generate flashcards
+● 31. /mnemonics — memory tricks for facts
+● 32. /examprep — exam-style questions
+● 33. /compare — contrast two concepts
+● 34. /define — term + example
+● 35. /steps — break a process into steps
+● 36. /practice — practice problems
+● 37. /revise — chapter revision summary
+● 38. /answer — model answer for an exam question
+
+Coding
+● 39. /code — write code for a task
+● 40. /debug — find and fix a bug
+● 41. /explaincode — explain what code does
+● 42. /optimize — improve performance
+● 43. /comment — add code comments
+● 44. /convert — port code between languages
+● 45. /test — write unit tests
+● 46. /refactor — clean up for readability
+● 47. /regex — build a regex pattern
+● 48. /sql — write a SQL query
+● 49. /api — design an API endpoint
+● 50. /architecture — suggest system design
+
+Business & Career
+● 51. /resume — improve resume bullets
+● 52. /coverletter — draft a cover letter
+● 53. /interview — generate interview questions
+● 54. /pitch — write a pitch for an idea
+● 55. /swot — SWOT analysis
+● 56. /strategy — strategy for a goal
+● 57. /negotiate — negotiation talking points
+● 58. /proposal — business proposal draft
+● 59. /marketresearch — summarize industry trends
+● 60. /branding — branding ideas
+● 61. /okr — set OKRs for a team/goal
+● 62. /report — draft a report
+● 63. /meeting — meeting agenda
+
+
+[ PAGE 3 ]
+-------------------------------------------------------------------
+Creative
+● 64. /poem — poem on a theme
+● 65. /songidea — original song concept/lyrics
+● 66. /namegen — names for product/character
+● 67. /worldbuild — build a fictional world
+● 68. /character — character profile
+● 69. /plot — plot twist idea
+● 70. /dialogue — dialogue between characters
+● 71. /joke — joke on a topic
+● 72. /riddle — riddle on a topic
+● 73. /metaphor — metaphor for a concept
+● 74. /script — short scene script
+● 75. /artprompt — image-generation prompt
+
+Personal & Lifestyle
+● 76. /motivate — motivational message
+● 77. /journal — journal prompts
+● 78. /advice — advice for a situation
+● 79. /mealplan — meal plan for a goal
+● 80. /workout — workout routine
+● 81. /budget — simple budget plan
+● 82. /travel — travel itinerary
+● 83. /giftideas — gift suggestions
+● 84. /selfcare — self-care routine
+● 85. /booklist — book recommendations
+● 86. /skill — fast way to learn a skill
+● 87. /decisionhelp — weigh two options
+
+Marketing & Social
+● 88. /hashtags — hashtag suggestions
+● 89. /adcopy — ad copy for a product
+● 90. /socialpost — social media post
+● 91. /emailmarketing — marketing email
+● 92. /seotitle — SEO-friendly title
+● 93. /productdesc — product description
+● 94. /brandvoice — define a brand voice
+● 95. /contentcalendar — monthly content calendar
+
+
+[ PAGE 4 ]
+-------------------------------------------------------------------
+Marketing & Social (Continued)
+● 96. /influencer — outreach message
+● 97. /landingpage — landing page copy
+● 98. /testimonial — sample testimonial
+● 99. /videoscript — video script
+● 100. /analytics — KPIs for a campaign
+
+===================================================================
+PRO-TIP FOR CHATGPT USERS:
+To make these prompts work permanently without retyping:
+1. Open ChatGPT Settings > Custom Instructions
+2. Under "How would you like ChatGPT to respond?", paste:
+   "When I start my prompt with a slash command (e.g., /plan, /debug, /eli5, /rewrite), execute the corresponding task pattern immediately in a concise, structured format without introductory fluff."
+3. Save, and use your new slash shortcuts in any chat!
+===================================================================`,
+    aiDetails: {
+      promptCount: 100,
+      categoriesIncluded: [
+        'Productivity',
+        'Writing',
+        'Study & Exam Prep',
+        'Coding',
+        'Business & Career',
+        'Creative',
+        'Personal & Lifestyle',
+        'Marketing & Social'
+      ],
+      examplePrompts: [
+        {
+          category: 'Productivity',
+          title: '/plan — step-by-step plan for a task',
+          prompt: 'Act as an expert project manager. Create a comprehensive, step-by-step plan for: {task_or_project}. Break it into actionable milestones, estimate time per step, and highlight potential bottlenecks.',
+          variables: ['task_or_project'],
+          outputPreview: 'Chronological milestone breakdowns with time budgets and risk mitigation.'
+        },
+        {
+          category: 'Study & Exam Prep',
+          title: "/eli5 — explain like I'm five",
+          prompt: "Explain {complex_concept} as if I am 5 years old. Use playful, relatable analogies, zero technical jargon, and simple sentence structures.",
+          variables: ['complex_concept'],
+          outputPreview: 'Deconstructs difficult technical topics into vivid, intuitive daily life analogies.'
+        },
+        {
+          category: 'Coding',
+          title: '/debug — find and fix a bug',
+          prompt: 'Analyze the following code snippet and error message: Code: {code_snippet}, Error: {error_message}. Explain the root cause of the bug and provide the corrected code snippet.',
+          variables: ['code_snippet', 'error_message'],
+          outputPreview: 'Diagnoses runtime and syntax issues with explanations and clean drop-in fixes.'
+        },
+        {
+          category: 'Business & Career',
+          title: '/resume — improve resume bullets',
+          prompt: 'Rewrite these resume bullet points using the Google XYZ formula ("Accomplished [X] as measured by [Y] by doing [Z]"): {raw_bullets}. Add strong action verbs and quantified impact.',
+          variables: ['raw_bullets'],
+          outputPreview: 'Upgrades basic task descriptions into metric-driven accomplishments.'
+        },
+        {
+          category: 'Writing',
+          title: '/rewrite — clearer/simpler version',
+          prompt: 'Rewrite the following text to be significantly clearer, more concise, and natural while preserving the original intent: {draft_text}. Eliminate unnecessary adverbs and passive voice.',
+          variables: ['draft_text'],
+          outputPreview: 'Transforms clunky, wordy sentences into crisp, professional prose.'
+        }
+      ],
+      compatibleTools: ['ChatGPT (Free & Plus / GPT-4o)', 'Claude 3.5 Sonnet', 'Google Gemini', 'Cursor / Perplexity'],
+      usageInstructions: [
+        'Type any slash command (e.g. /plan, /debug, /rewrite)',
+        'Add your specific topic or text after the command',
+        'Paste into ChatGPT Custom Instructions for permanent hotkey-style execution'
+      ]
+    },
+    ebookDetails: {
+      pages: 4,
+      tableOfContents: [
+        'Page 1: Productivity (1–12), Writing (13–25), Study & Exam Prep (26–29)',
+        'Page 2: Study & Exam Prep (30–38), Coding (39–50), Business & Career (51–63)',
+        'Page 3: Creative (64–75), Personal & Lifestyle (76–87), Marketing & Social (88–95)',
+        'Page 4: Marketing & Social (96–100) & Custom Instructions Setup'
+      ],
+      sampleChapterTitle: 'Page 1: Productivity & Writing Slash Commands',
+      sampleChapterContent: '1. /plan — step-by-step plan for a task\n2. /prioritize — rank tasks by urgency/importance\n3. /schedule — build a daily/weekly schedule\n4. /checklist — turn info into an actionable checklist\n5. /summarize — condense into key points...',
+      pdfPages: [
+        {
+          pageNumber: 1,
+          title: '100 Trending ChatGPT "/" Prompts',
+          subtitle: 'A quick-reference list of slash-style prompt commands, grouped by category.',
+          cards: [
+            {
+              title: 'Productivity',
+              bullets: [
+                '1. /plan — step-by-step plan for a task',
+                '2. /prioritize — rank tasks by urgency/importance',
+                '3. /schedule — build a daily/weekly schedule',
+                '4. /checklist — turn info into an actionable checklist',
+                '5. /summarize — condense into key points',
+                '6. /decide — compare options, recommend one',
+                '7. /goals — break a goal into SMART objectives',
+                '8. /habit — build a habit-forming plan',
+                '9. /timeblock — time-blocked daily schedule',
+                '10. /delegate — suggest what to hand off',
+                '11. /review — review week/month, suggest fixes',
+                '12. /focus — distraction-free work routine'
+              ]
+            },
+            {
+              title: 'Writing',
+              bullets: [
+                '13. /rewrite — clearer/simpler version',
+                '14. /shorten — cut to half the length',
+                '15. /expand — grow an idea into a paragraph',
+                '16. /tone — rewrite in a chosen tone',
+                '17. /proofread — check grammar/spelling',
+                '18. /outline — structure for a topic',
+                '19. /email — draft a professional email',
+                '20. /essay — write an essay on a topic',
+                '21. /story — short story on a theme',
+                '22. /headline — catchy headline options',
+                '23. /caption — social media caption',
+                '24. /bio — short personal/professional bio',
+                '25. /letter — formal letter draft'
+              ]
+            },
+            {
+              title: 'Study & Exam Prep',
+              bullets: [
+                '26. /explain — simplify a concept',
+                '27. /eli5 — explain like I\'m five',
+                '28. /quiz — quiz questions on a topic',
+                '29. /notes — turn text into study notes'
+              ]
+            }
+          ]
+        },
+        {
+          pageNumber: 2,
+          title: 'Study, Coding & Business Commands',
+          subtitle: 'Accelerate technical tasks, study recall, and career documents',
+          cards: [
+            {
+              title: 'Study & Exam Prep (Continued)',
+              bullets: [
+                '30. /flashcards — generate flashcards',
+                '31. /mnemonics — memory tricks for facts',
+                '32. /examprep — exam-style questions',
+                '33. /compare — contrast two concepts',
+                '34. /define — term + example',
+                '35. /steps — break a process into steps',
+                '36. /practice — practice problems',
+                '37. /revise — chapter revision summary',
+                '38. /answer — model answer for an exam question'
+              ]
+            },
+            {
+              title: 'Coding',
+              bullets: [
+                '39. /code — write code for a task',
+                '40. /debug — find and fix a bug',
+                '41. /explaincode — explain what code does',
+                '42. /optimize — improve performance',
+                '43. /comment — add code comments',
+                '44. /convert — port code between languages',
+                '45. /test — write unit tests',
+                '46. /refactor — clean up for readability',
+                '47. /regex — build a regex pattern',
+                '48. /sql — write a SQL query',
+                '49. /api — design an API endpoint',
+                '50. /architecture — suggest system design'
+              ]
+            },
+            {
+              title: 'Business & Career',
+              bullets: [
+                '51. /resume — improve resume bullets',
+                '52. /coverletter — draft a cover letter',
+                '53. /interview — generate interview questions',
+                '54. /pitch — write a pitch for an idea',
+                '55. /swot — SWOT analysis',
+                '56. /strategy — strategy for a goal',
+                '57. /negotiate — negotiation talking points',
+                '58. /proposal — business proposal draft',
+                '59. /marketresearch — summarize industry trends',
+                '60. /branding — branding ideas',
+                '61. /okr — set OKRs for a team/goal',
+                '62. /report — draft a report',
+                '63. /meeting — meeting agenda'
+              ]
+            }
+          ]
+        },
+        {
+          pageNumber: 3,
+          title: 'Creative, Personal & Marketing Commands',
+          subtitle: 'From worldbuilding to meal planning and campaign copy',
+          cards: [
+            {
+              title: 'Creative',
+              bullets: [
+                '64. /poem — poem on a theme',
+                '65. /songidea — original song concept/lyrics',
+                '66. /namegen — names for product/character',
+                '67. /worldbuild — build a fictional world',
+                '68. /character — character profile',
+                '69. /plot — plot twist idea',
+                '70. /dialogue — dialogue between characters',
+                '71. /joke — joke on a topic',
+                '72. /riddle — riddle on a topic',
+                '73. /metaphor — metaphor for a concept',
+                '74. /script — short scene script',
+                '75. /artprompt — image-generation prompt'
+              ]
+            },
+            {
+              title: 'Personal & Lifestyle',
+              bullets: [
+                '76. /motivate — motivational message',
+                '77. /journal — journal prompts',
+                '78. /advice — advice for a situation',
+                '79. /mealplan — meal plan for a goal',
+                '80. /workout — workout routine',
+                '81. /budget — simple budget plan',
+                '82. /travel — travel itinerary',
+                '83. /giftideas — gift suggestions',
+                '84. /selfcare — self-care routine',
+                '85. /booklist — book recommendations',
+                '86. /skill — fast way to learn a skill',
+                '87. /decisionhelp — weigh two options'
+              ]
+            },
+            {
+              title: 'Marketing & Social',
+              bullets: [
+                '88. /hashtags — hashtag suggestions',
+                '89. /adcopy — ad copy for a product',
+                '90. /socialpost — social media post',
+                '91. /emailmarketing — marketing email',
+                '92. /seotitle — SEO-friendly title',
+                '93. /productdesc — product description',
+                '94. /brandvoice — define a brand voice',
+                '95. /contentcalendar — monthly content calendar'
+              ]
+            }
+          ]
+        },
+        {
+          pageNumber: 4,
+          title: 'Campaign Outreach & Custom Instructions',
+          subtitle: 'Outreach scripts, analytics, and setup automation',
+          cards: [
+            {
+              title: 'Marketing & Social (Continued)',
+              bullets: [
+                '96. /influencer — outreach message',
+                '97. /landingpage — landing page copy',
+                '98. /testimonial — sample testimonial',
+                '99. /videoscript — video script',
+                '100. /analytics — KPIs for a campaign'
+              ],
+              callout: 'Pro-Tip: Enter these into ChatGPT Custom Instructions ("How would you like ChatGPT to respond?") to activate hotkey execution in any chat session.'
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
     id: 'prod-ai-mega',
     slug: 'chatgpt-claude-ai-creator-mega-pack',
     title: 'The Ultimate AI Creator & Business Mega-Pack',
@@ -1298,6 +1755,512 @@ Section 1: Hero Section Anatomy
       sampleChapterTitle: 'Module 1: Above the Fold Architecture',
       sampleChapterContent: 'Visitors decide in 2.8 seconds whether to stay or bounce. Your hero headline must answer three questions immediately: What is this? Who is it for? Why should I care today?'
     }
+  },
+  {
+    id: 'prod-editing-designing-50-slash',
+    slug: '50-trending-one-word-slash-prompts-editing-designing',
+    title: '50 Trending One-Word “/” Prompts for Edits & Designs',
+    subtitle: 'Official 5-Page PDF Cheatsheet & Guide • Photo, Aesthetics, Social Formats & Materials',
+    shortDescription: '50 high-impact one-word slash prompts for visual editing, AI image restyling, lighting effects, and social design (Cinematic, Luxury, Minimal, Cyberpunk, 3D, Poster, OldMoney, Glitch, etc.).',
+    fullDescription: `Transform images, generate social media graphics, and direct AI design with surgical precision. 
+
+"50 Trending One-Word “/” Prompts: Edits & Designs" provides ready-to-copy slash directives formatted for ChatGPT, Midjourney, and generative design tools. Each prompt begins with a single trending-style keyword following “/” (such as /Cinematic, /Luxury, /Minimal, /Vibrant, /Futuristic, /3D, /Story, /Reel, /OldMoney, /Chrome, /Glass) followed by calibrated instructions that preserve subjects while modifying lighting, composition, aesthetics, and formats.
+
+Format: Each prompt starts with a single trending-style keyword after “/”. Replace or customize the instruction as needed.
+
+Included Categories:
+• Photo & Lighting: /Cinematic, /Portrait, /Product, /Studio, /Neon, /Dramatic, /Sharp, /Glow, /Blur, /Dark, /Light
+• Aesthetic & Mood: /Luxury, /Minimal, /Vibrant, /Aesthetic, /Futuristic, /Vintage, /Pastel, /Monochrome, /Clean, /Modern, /Bold, /Elegant, /Retro
+• Social & Content Formats: /Poster, /Flyer, /Thumbnail, /Story (9:16), /Reel (9:16), /Carousel, /Ad, /Viral
+• Fashion & Lifestyle: /Editorial, /Brand, /Fashion, /Streetwear, /OldMoney, /LuxuryWatch, /Beauty, /Food, /Travel, /Nature, /Magazine
+• Materials & Creative Effects: /3D, /Cyberpunk, /Glitch, /Chrome, /Glass, /Paper, /Collage`,
+    price: 20,
+    originalPrice: 40,
+    category: 'E-books',
+    tags: [
+      'E-books',
+      'PDF Book',
+      'AI Prompts',
+      'Editing Prompts',
+      'Design Prompts',
+      'Trending Prompts',
+      'ChatGPT',
+      'ChatGPT Prompts',
+      'One-Word Prompts',
+      'Design',
+      'Editing',
+      'Best Seller',
+      'New Release'
+    ],
+    format: 'PDF',
+    pagesOrCount: '5-Page Master PDF Book (50 Prompts)',
+    rating: 4.99,
+    reviewCount: 247,
+    isBestSeller: true,
+    isNewRelease: true,
+    isFeatured: true,
+    coverGradient: {
+      from: '#6366f1',
+      to: '#0f172a',
+      accent: '#a855f7'
+    },
+    whatsIncluded: [
+      'Complete 5-Page High-Resolution PDF Guide ("50 Trending One-Word “/” Prompts")',
+      '50 Calibrated Editing & Designing One-Word Slash Directives',
+      'Interactive One-Click Copy Web Vault with Instant Style Filtering',
+      'Compatibility Guide for ChatGPT Plus (DALL-E 3/GPT-4o), Midjourney, and Canva AI',
+      'Printable High-Contrast Desk Cheatsheet'
+    ],
+    whoItsFor: [
+      'Content creators, graphic designers, and video editors wanting rapid visual style commands',
+      'Social media managers crafting 9:16 Stories, Reels covers, YouTube Thumbnails, and Carousels',
+      'E-commerce brand owners creating studio product shots and luxury ad visuals',
+      'Photographers and visual artists looking for instant color-grading and atmosphere prompts'
+    ],
+    keyBenefits: [
+      'Replace lengthy descriptive prompts with single-word high-leverage slash directives',
+      'Maintain subject integrity while altering lighting, atmosphere, and material aesthetics',
+      'Instantly generate platform-specific aspect ratios and layouts (Poster, Story, Reel, Thumbnail)',
+      'Pre-tested with GPT-4o, DALL-E, Midjourney, and modern creative AI workflows'
+    ],
+    features: [
+      '50 One-word slash prompts across 5 comprehensive pages',
+      'Direct copy-paste format ready for immediate prompt execution',
+      'High-resolution PDF export and digital interactive vault access',
+      'Lifetime free updates for new design and editing prompt trends'
+    ],
+    fileSize: '1.8 MB',
+    downloadFilename: '50-Trending-One-Word-Slash-Prompts-Editing-Designing.pdf',
+    downloadContent: `===================================================================
+50 TRENDING ONE-WORD "/" PROMPTS
+Editing & Designing Prompt Collection • Ready to copy and use with ChatGPT
+Format: Each prompt starts with a single trending-style keyword after "/".
+===================================================================
+
+[ PAGE 1 ]
+-------------------------------------------------------------------
+1. Cinematic
+/Cinematic — Transform this image into a cinematic editorial visual with dramatic lighting, depth, atmosphere, and premium color grading while preserving the subject.
+
+2. Luxury
+/Luxury — Give this design a premium luxury aesthetic with elegant composition, sophisticated lighting, refined details, and high-end visual styling.
+
+3. Minimal
+/Minimal — Redesign this image with a clean minimalist composition, generous whitespace, simple hierarchy, and polished modern aesthetics.
+
+4. Vibrant
+/Vibrant — Enhance the visual with energetic colors, lively contrast, crisp details, and a bold modern social-media look.
+
+5. Aesthetic
+/Aesthetic — Create a visually pleasing aesthetic version with balanced composition, soft atmosphere, tasteful tones, and cohesive styling.
+
+6. Futuristic
+/Futuristic — Transform this design into a sleek futuristic visual with subtle technology elements, glowing accents, depth, and modern composition.
+
+7. Vintage
+/Vintage — Give this image a tasteful vintage-inspired appearance with nostalgic tones, subtle texture, classic composition, and authentic photographic character.
+
+8. Editorial
+/Editorial — Turn this into a high-fashion editorial design with sophisticated composition, controlled lighting, strong hierarchy, and magazine-quality styling.
+
+9. Portrait
+/Portrait — Enhance this portrait with professional lighting, natural skin detail, depth of field, and polished photographic composition.
+
+10. Product
+/Product — Create a premium product presentation with studio lighting, clean background, realistic shadows, and sharp product details.
+
+
+[ PAGE 2 ]
+-------------------------------------------------------------------
+11. Studio
+/Studio — Recreate this as a professional studio photograph with soft controlled lighting, clean background, realistic shadows, and crisp details.
+
+12. Neon
+/Neon — Add a stylish neon-inspired atmosphere with glowing accents, dramatic contrast, and a modern nightlife aesthetic while keeping the subject clear.
+
+13. Cyberpunk
+/Cyberpunk — Restyle this visual with a futuristic cyberpunk atmosphere, neon environment, cinematic depth, and detailed urban mood.
+
+14. Pastel
+/Pastel — Apply a soft pastel design direction with gentle tones, clean composition, subtle contrast, and an elegant contemporary feel.
+
+15. Monochrome
+/Monochrome — Convert this design into a sophisticated monochrome composition with strong tonal range, texture, and visual depth.
+
+16. Dramatic
+/Dramatic — Create a dramatic visual with directional lighting, deeper shadows, atmospheric depth, and a powerful focal point.
+
+17. Clean
+/Clean — Make this design cleaner and more professional by removing visual clutter, improving spacing, alignment, clarity, and hierarchy.
+
+18. Sharp
+/Sharp — Improve sharpness and clarity while preserving natural textures, proportions, colors, and important details.
+
+19. Glow
+/Glow — Add subtle realistic glow and luminous accents to create a premium modern visual without overpowering the main subject.
+
+20. Blur
+/Blur — Create a realistic depth-of-field effect with a sharp main subject and naturally softened background.
+
+
+[ PAGE 3 ]
+-------------------------------------------------------------------
+21. 3D
+/3D — Convert the visual into a polished 3D-style composition with realistic depth, lighting, materials, and dimensional presentation.
+
+22. Poster
+/Poster — Turn this into an eye-catching promotional poster with strong hierarchy, balanced spacing, a clear focal point, and room for headline and CTA.
+
+23. Flyer
+/Flyer — Create a modern promotional flyer with a structured grid, clear information hierarchy, readable text areas, and professional spacing.
+
+24. Thumbnail
+/Thumbnail — Redesign this as an attention-grabbing thumbnail with a strong focal point, bold visual hierarchy, clean composition, and space for a short title.
+
+25. Story
+/Story — Reformat this into a premium 9:16 Instagram Story design with balanced composition and clear areas for hook, visual, and CTA.
+
+26. Reel
+/Reel — Adapt this visual into a 9:16 Instagram Reel cover with strong focal hierarchy, readable title space, and scroll-stopping composition.
+
+27. Carousel
+/Carousel — Turn this into a clean Instagram carousel slide with consistent margins, strong hierarchy, and a layout that can continue across multiple slides.
+
+28. Brand
+/Brand — Apply a cohesive professional brand identity with consistent typography areas, spacing, visual language, and premium presentation.
+
+29. Modern
+/Modern — Redesign this visual with a contemporary layout, clean geometry, refined typography space, and modern visual balance.
+
+30. Bold
+/Bold — Make the design bold and attention-grabbing using strong hierarchy, confident composition, high contrast, and clear focal emphasis.
+
+
+[ PAGE 4 ]
+-------------------------------------------------------------------
+31. Elegant
+/Elegant — Give this design a refined elegant appearance with sophisticated spacing, subtle contrast, graceful composition, and premium styling.
+
+32. Dark
+/Dark — Create a dark premium aesthetic with controlled lighting, deep atmospheric tones, subtle highlights, and strong subject separation.
+
+33. Light
+/Light — Create a bright clean aesthetic with soft lighting, airy composition, gentle contrast, and a polished professional appearance.
+
+34. Fashion
+/Fashion — Transform this into a premium fashion campaign visual with editorial styling, sophisticated lighting, confident composition, and realistic clothing details.
+
+35. Streetwear
+/Streetwear — Give this outfit visual a contemporary streetwear campaign aesthetic with urban atmosphere, dynamic composition, and realistic styling.
+
+36. OldMoney
+/Old Money — Create a timeless refined fashion aesthetic using understated luxury, neutral styling, elegant composition, and classic visual details.
+
+37. LuxuryWatch
+/Luxury Watch — Present the watch as a premium luxury product with dramatic studio lighting, realistic reflections, elegant background, and sharp dial details.
+
+38. Beauty
+/Beauty — Create a polished beauty-editorial visual with flattering professional lighting, clean composition, realistic texture, and premium presentation.
+
+39. Food
+/Food — Turn this food image into a premium restaurant advertisement with appetizing lighting, realistic texture, elegant composition, and clean space for text.
+
+40. Travel
+/Travel — Give this image a cinematic travel-editorial look with immersive atmosphere, natural colors, depth, and an aspirational composition.
+
+
+[ PAGE 5 ]
+-------------------------------------------------------------------
+41. Nature
+/Nature — Enhance the natural environment with realistic detail, balanced light, atmospheric depth, and a calm visually rich composition.
+
+42. Retro
+/Retro — Create a stylish retro-inspired visual with period-inspired tones, subtle grain, nostalgic composition, and tasteful modern polish.
+
+43. Glitch
+/Glitch — Apply a controlled digital glitch aesthetic with subtle distortion, futuristic details, and strong visual hierarchy while keeping the subject recognizable.
+
+44. Chrome
+/Chrome — Give the visual a sleek chrome-inspired finish with metallic reflections, polished surfaces, dramatic highlights, and futuristic presentation.
+
+45. Glass
+/Glass — Create a premium glassmorphism-inspired composition with translucent layers, soft reflections, depth, and clean modern spacing.
+
+46. Paper
+/Paper — Redesign the visual with a sophisticated paper-texture editorial style, tactile details, clean typography space, and balanced composition.
+
+47. Collage
+/Collage — Create a trendy editorial collage using layered elements, clean alignment, varied scale, and cohesive visual storytelling.
+
+48. Magazine
+/Magazine — Turn this into a premium magazine-style visual with strong editorial hierarchy, headline space, refined layout, and professional art direction.
+
+49. Ad
+/Ad — Convert this visual into a modern social-media advertisement with a strong hook area, product focus, clean hierarchy, and clear CTA space.
+
+50. Viral
+/Viral — Make this visual scroll-stopping and social-media-ready using a strong focal point, dynamic composition, high clarity, and space for a short hook.
+===================================================================`,
+    aiDetails: {
+      promptCount: 50,
+      categoriesIncluded: [
+        'Photo & Lighting',
+        'Aesthetic & Mood',
+        'Social & Content Formats',
+        'Fashion & Lifestyle',
+        'Materials & Creative Effects'
+      ],
+      examplePrompts: [
+        {
+          category: 'Photo & Lighting',
+          title: '/Cinematic — Dramatic lighting & color grading',
+          prompt: '/Cinematic — Transform this image into a cinematic editorial visual with dramatic lighting, depth, atmosphere, and premium color grading while preserving the subject.',
+          variables: ['subject_image'],
+          outputPreview: 'High-contrast cinematic color grade with atmospheric depth and movie-still fidelity.'
+        },
+        {
+          category: 'Social & Content Formats',
+          title: '/Thumbnail — Attention-grabbing YouTube thumbnail',
+          prompt: '/Thumbnail — Redesign this as an attention-grabbing thumbnail with a strong focal point, bold visual hierarchy, clean composition, and space for a short title.',
+          variables: ['video_topic'],
+          outputPreview: 'Click-optimized thumbnail composition with clear foreground focus and title breathing room.'
+        },
+        {
+          category: 'Materials & Creative Effects',
+          title: '/Glass — Premium glassmorphism composition',
+          prompt: '/Glass — Create a premium glassmorphism-inspired composition with translucent layers, soft reflections, depth, and clean modern spacing.',
+          variables: ['ui_or_product'],
+          outputPreview: 'Translucent frosted glass layers with realistic refraction, soft specular sheen, and modern UI depth.'
+        },
+        {
+          category: 'Fashion & Lifestyle',
+          title: '/OldMoney — Timeless understated luxury',
+          prompt: '/Old Money — Create a timeless refined fashion aesthetic using understated luxury, neutral styling, elegant composition, and classic visual details.',
+          variables: ['fashion_subject'],
+          outputPreview: 'Sophisticated neutral aesthetic with tailored textures, heritage lighting, and subtle elegance.'
+        }
+      ],
+      compatibleTools: ['ChatGPT Plus (GPT-4o / DALL-E 3)', 'Midjourney v6', 'Canva Magic Media', 'Stable Diffusion'],
+      usageInstructions: [
+        'Attach your base image or design concept in ChatGPT or Midjourney',
+        'Type your chosen one-word slash directive (e.g. /Cinematic, /Minimal, /3D, /Story)',
+        'Paste the calibrated prompt instruction to achieve instant style transformation'
+      ]
+    },
+    ebookDetails: {
+      pages: 5,
+      tableOfContents: [
+        'Page 1: Cinematic, Luxury, Minimal, Vibrant, Aesthetic, Futuristic, Vintage, Editorial, Portrait, Product',
+        'Page 2: Studio, Neon, Cyberpunk, Pastel, Monochrome, Dramatic, Clean, Sharp, Glow, Blur',
+        'Page 3: 3D, Poster, Flyer, Thumbnail, Story (9:16), Reel (9:16), Carousel, Brand, Modern, Bold',
+        'Page 4: Elegant, Dark, Light, Fashion, Streetwear, OldMoney, LuxuryWatch, Beauty, Food, Travel',
+        'Page 5: Nature, Retro, Glitch, Chrome, Glass, Paper, Collage, Magazine, Ad, Viral'
+      ],
+      sampleChapterTitle: 'Page 1: Aesthetics & Lighting Directives',
+      sampleChapterContent: '1. Cinematic: /Cinematic — Transform this image into a cinematic editorial visual with dramatic lighting...\n2. Luxury: /Luxury — Give this design a premium luxury aesthetic...\n3. Minimal: /Minimal — Redesign this image with clean minimalist composition...',
+      pdfPages: [
+        {
+          pageNumber: 1,
+          title: '50 Trending One-Word “/” Prompts',
+          subtitle: 'Editing & Designing Prompt Collection • Ready to copy and use with ChatGPT (Page 1)',
+          cards: [
+            {
+              title: 'Format Directive',
+              text: 'Each prompt starts with a single trending-style keyword after “/”. Replace or customize the instruction as needed.'
+            },
+            {
+              title: 'Prompts 1 to 10',
+              bullets: [
+                '1. Cinematic: /Cinematic — Transform this image into a cinematic editorial visual with dramatic lighting, depth, atmosphere, and premium color grading while preserving the subject.',
+                '2. Luxury: /Luxury — Give this design a premium luxury aesthetic with elegant composition, sophisticated lighting, refined details, and high-end visual styling.',
+                '3. Minimal: /Minimal — Redesign this image with a clean minimalist composition, generous whitespace, simple hierarchy, and polished modern aesthetics.',
+                '4. Vibrant: /Vibrant — Enhance the visual with energetic colors, lively contrast, crisp details, and a bold modern social-media look.',
+                '5. Aesthetic: /Aesthetic — Create a visually pleasing aesthetic version with balanced composition, soft atmosphere, tasteful tones, and cohesive styling.',
+                '6. Futuristic: /Futuristic — Transform this design into a sleek futuristic visual with subtle technology elements, glowing accents, depth, and modern composition.',
+                '7. Vintage: /Vintage — Give this image a tasteful vintage-inspired appearance with nostalgic tones, subtle texture, classic composition, and authentic photographic character.',
+                '8. Editorial: /Editorial — Turn this into a high-fashion editorial design with sophisticated composition, controlled lighting, strong hierarchy, and magazine-quality styling.',
+                '9. Portrait: /Portrait — Enhance this portrait with professional lighting, natural skin detail, depth of field, and polished photographic composition.',
+                '10. Product: /Product — Create a premium product presentation with studio lighting, clean background, realistic shadows, and sharp product details.'
+              ]
+            }
+          ]
+        },
+        {
+          pageNumber: 2,
+          title: 'Studio, Atmosphere & Focus Directives',
+          subtitle: 'Page 2 • Prompts 11 to 20',
+          cards: [
+            {
+              title: 'Prompts 11 to 20',
+              bullets: [
+                '11. Studio: /Studio — Recreate this as a professional studio photograph with soft controlled lighting, clean background, realistic shadows, and crisp details.',
+                '12. Neon: /Neon — Add a stylish neon-inspired atmosphere with glowing accents, dramatic contrast, and a modern nightlife aesthetic while keeping the subject clear.',
+                '13. Cyberpunk: /Cyberpunk — Restyle this visual with a futuristic cyberpunk atmosphere, neon environment, cinematic depth, and detailed urban mood.',
+                '14. Pastel: /Pastel — Apply a soft pastel design direction with gentle tones, clean composition, subtle contrast, and an elegant contemporary feel.',
+                '15. Monochrome: /Monochrome — Convert this design into a sophisticated monochrome composition with strong tonal range, texture, and visual depth.',
+                '16. Dramatic: /Dramatic — Create a dramatic visual with directional lighting, deeper shadows, atmospheric depth, and a powerful focal point.',
+                '17. Clean: /Clean — Make this design cleaner and more professional by removing visual clutter, improving spacing, alignment, clarity, and hierarchy.',
+                '18. Sharp: /Sharp — Improve sharpness and clarity while preserving natural textures, proportions, colors, and important details.',
+                '19. Glow: /Glow — Add subtle realistic glow and luminous accents to create a premium modern visual without overpowering the main subject.',
+                '20. Blur: /Blur — Create a realistic depth-of-field effect with a sharp main subject and naturally softened background.'
+              ]
+            }
+          ]
+        },
+        {
+          pageNumber: 3,
+          title: '3D, Social Media Formats & Brand Directives',
+          subtitle: 'Page 3 • Prompts 21 to 30',
+          cards: [
+            {
+              title: 'Prompts 21 to 30',
+              bullets: [
+                '21. 3D: /3D — Convert the visual into a polished 3D-style composition with realistic depth, lighting, materials, and dimensional presentation.',
+                '22. Poster: /Poster — Turn this into an eye-catching promotional poster with strong hierarchy, balanced spacing, a clear focal point, and room for headline and CTA.',
+                '23. Flyer: /Flyer — Create a modern promotional flyer with a structured grid, clear information hierarchy, readable text areas, and professional spacing.',
+                '24. Thumbnail: /Thumbnail — Redesign this as an attention-grabbing thumbnail with a strong focal point, bold visual hierarchy, clean composition, and space for a short title.',
+                '25. Story: /Story — Reformat this into a premium 9:16 Instagram Story design with balanced composition and clear areas for hook, visual, and CTA.',
+                '26. Reel: /Reel — Adapt this visual into a 9:16 Instagram Reel cover with strong focal hierarchy, readable title space, and scroll-stopping composition.',
+                '27. Carousel: /Carousel — Turn this into a clean Instagram carousel slide with consistent margins, strong hierarchy, and a layout that can continue across multiple slides.',
+                '28. Brand: /Brand — Apply a cohesive professional brand identity with consistent typography areas, spacing, visual language, and premium presentation.',
+                '29. Modern: /Modern — Redesign this visual with a contemporary layout, clean geometry, refined typography space, and modern visual balance.',
+                '30. Bold: /Bold — Make the design bold and attention-grabbing using strong hierarchy, confident composition, high contrast, and clear focal emphasis.'
+              ]
+            }
+          ]
+        },
+        {
+          pageNumber: 4,
+          title: 'Fashion, Luxury & Commercial Directives',
+          subtitle: 'Page 4 • Prompts 31 to 40',
+          cards: [
+            {
+              title: 'Prompts 31 to 40',
+              bullets: [
+                '31. Elegant: /Elegant — Give this design a refined elegant appearance with sophisticated spacing, subtle contrast, graceful composition, and premium styling.',
+                '32. Dark: /Dark — Create a dark premium aesthetic with controlled lighting, deep atmospheric tones, subtle highlights, and strong subject separation.',
+                '33. Light: /Light — Create a bright clean aesthetic with soft lighting, airy composition, gentle contrast, and a polished professional appearance.',
+                '34. Fashion: /Fashion — Transform this into a premium fashion campaign visual with editorial styling, sophisticated lighting, confident composition, and realistic clothing details.',
+                '35. Streetwear: /Streetwear — Give this outfit visual a contemporary streetwear campaign aesthetic with urban atmosphere, dynamic composition, and realistic styling.',
+                '36. OldMoney: /Old Money — Create a timeless refined fashion aesthetic using understated luxury, neutral styling, elegant composition, and classic visual details.',
+                '37. LuxuryWatch: /Luxury Watch — Present the watch as a premium luxury product with dramatic studio lighting, realistic reflections, elegant background, and sharp dial details.',
+                '38. Beauty: /Beauty — Create a polished beauty-editorial visual with flattering professional lighting, clean composition, realistic texture, and premium presentation.',
+                '39. Food: /Food — Turn this food image into a premium restaurant advertisement with appetizing lighting, realistic texture, elegant composition, and clean space for text.',
+                '40. Travel: /Travel — Give this image a cinematic travel-editorial look with immersive atmosphere, natural colors, depth, and an aspirational composition.'
+              ]
+            }
+          ]
+        },
+        {
+          pageNumber: 5,
+          title: 'Creative Textures, Materials & Viral Ads',
+          subtitle: 'Page 5 • Prompts 41 to 50',
+          cards: [
+            {
+              title: 'Prompts 41 to 50',
+              bullets: [
+                '41. Nature: /Nature — Enhance the natural environment with realistic detail, balanced light, atmospheric depth, and a calm visually rich composition.',
+                '42. Retro: /Retro — Create a stylish retro-inspired visual with period-inspired tones, subtle grain, nostalgic composition, and tasteful modern polish.',
+                '43. Glitch: /Glitch — Apply a controlled digital glitch aesthetic with subtle distortion, futuristic details, and strong visual hierarchy while keeping the subject recognizable.',
+                '44. Chrome: /Chrome — Give the visual a sleek chrome-inspired finish with metallic reflections, polished surfaces, dramatic highlights, and futuristic presentation.',
+                '45. Glass: /Glass — Create a premium glassmorphism-inspired composition with translucent layers, soft reflections, depth, and clean modern spacing.',
+                '46. Paper: /Paper — Redesign the visual with a sophisticated paper-texture editorial style, tactile details, clean typography space, and balanced composition.',
+                '47. Collage: /Collage — Create a trendy editorial collage using layered elements, clean alignment, varied scale, and cohesive visual storytelling.',
+                '48. Magazine: /Magazine — Turn this into a premium magazine-style visual with strong editorial hierarchy, headline space, refined layout, and professional art direction.',
+                '49. Ad: /Ad — Convert this visual into a modern social-media advertisement with a strong hook area, product focus, clean hierarchy, and clear CTA space.',
+                '50. Viral: /Viral — Make this visual scroll-stopping and social-media-ready using a strong focal point, dynamic composition, high clarity, and space for a short hook.'
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    id: 'prod-prompts-duo-bundle-20',
+    slug: 'chatgpt-slash-prompts-pdf-books-duo-bundle',
+    title: 'The Ultimate 150 “/” Prompts PDF Books Duo',
+    subtitle: 'Both Official PDF Books: 50 Edits & Designs + 100 Personal Help ($20 Combo Special)',
+    shortDescription: 'Get both complete PDF Books (50 One-Word Prompts for Edits & Designs + 100 Trending Slash Prompts for Personal Help & Productivity) together for only $20.',
+    fullDescription: `The complete, calibrated master collection of ChatGPT "/" slash prompts across all visual design and everyday personal tasks.
+
+This exclusive 2-in-1 PDF Book Bundle includes:
+
+BOOK 1: "50 Trending One-Word '/' Prompts for Edits & Designs" (5-Page Master PDF)
+• 50 single-keyword slash directives for visual editing, AI image restyling, lighting effects, and social design (/Cinematic, /Luxury, /Minimal, /Cyberpunk, /3D, /Poster, /OldMoney, /Glitch, etc.).
+• Photo & Lighting, Aesthetic & Mood, Social Formats, Fashion & Lifestyle, Materials & Effects.
+
+BOOK 2: "100 Trending ChatGPT '/' Prompts for Personal Help & Productivity" (4-Page Master PDF)
+• 100 slash-style prompt commands grouped across 8 categories: Personal Help & Lifestyle, Productivity, Writing, Study & Exam Prep, Coding, Business, Creative, and Marketing.
+• Shortcuts for /motivate, /budget, /mealplan, /plan, /prioritize, /rewrite, /eli5, /code, /debug, and more.
+
+Both PDF Books include immediate digital downloads, full high-resolution printable cheatsheets, and complete unlocked access to the interactive 1-click copy web vaults.`,
+    price: 20,
+    originalPrice: 40,
+    category: 'E-books',
+    tags: [
+      'E-books',
+      'PDF Book',
+      'Bundle',
+      'AI Prompts',
+      'Editing Prompts',
+      'Design Prompts',
+      'Personal Help',
+      'Trending Prompts',
+      'ChatGPT',
+      'Best Seller',
+      'Featured',
+      'New Release'
+    ],
+    format: 'PDF',
+    pagesOrCount: '2 Complete PDF Books (9 Pages Total)',
+    rating: 5.0,
+    reviewCount: 312,
+    isBestSeller: true,
+    isNewRelease: true,
+    isFeatured: true,
+    coverGradient: {
+      from: '#ec4899',
+      to: '#3b82f6',
+      accent: '#f43f5e'
+    },
+    whatsIncluded: [
+      'Complete 5-Page High-Resolution PDF Book: "50 Trending One-Word \'/\' Prompts for Edits & Designs"',
+      'Complete 4-Page High-Resolution PDF Book: "100 Trending ChatGPT \'/\' Prompts for Personal Help & Productivity"',
+      'Immediate Unlocked 1-Click Copy Access to all 150 Prompts in the Web Vault',
+      'Printable High-Contrast Desk Cheatsheets (A4 & US Letter format)',
+      'Custom Instructions Setup Guide for ChatGPT Plus, Claude 3.5 & Midjourney',
+      'Free Lifetime Revisions & Future Edition Updates'
+    ],
+    whoItsFor: [
+      'Anyone who wants the complete, all-in-one prompt library for both visual design and everyday productivity',
+      'Creators, designers, and freelancers wanting both editing power and business automation',
+      'Students and professionals looking to turn ChatGPT into an instant command-line engine'
+    ],
+    keyBenefits: [
+      'Save 50% compared to buying both guides separately',
+      'Instant access to 150 calibrated commands covering every creative and personal task',
+      'Immediate high-res PDF downloads with zero waiting time'
+    ],
+    features: [
+      'Both authentic master PDF book layouts matching official releases',
+      'Full interactive web vault access with 1-click clipboard copy',
+      'Works with GPT-4o, Midjourney, Claude 3.5 Sonnet, and DALL-E 3'
+    ],
+    fileSize: '6.8 MB (ZIP containing both PDF books)',
+    downloadFilename: 'Ultimate-150-Slash-Prompts-PDF-Books-Duo-Bundle.zip',
+    downloadContent: `===================================================================
+THE ULTIMATE 150 "/" PROMPTS PDF BOOKS DUO BUNDLE
+Published by Lumina Digital
+Format: 2 Master PDF Cheatsheet Books (9 Pages Total) + Digital Vaults
+Price: $20 (Special Duo Edition)
+===================================================================
+
+INCLUDED IN THIS DUO PACKAGE:
+1. "50 Trending One-Word '/' Prompts for Edits & Designs" (5-Page Master PDF)
+2. "100 Trending ChatGPT '/' Prompts for Personal Help & Productivity" (4-Page Master PDF)
+
+Thank you for your purchase! Both books and digital vaults are fully unlocked.`
   }
 ];
 
@@ -1317,6 +2280,7 @@ export const PRODUCT_CATEGORIES = [
 
 export const AI_PROMPT_SUBCATEGORIES = [
   'All AI Prompts',
+  'Trending Prompts',
   'ChatGPT Prompts',
   'Business Prompts',
   'Marketing Prompts',

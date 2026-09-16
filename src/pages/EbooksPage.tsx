@@ -4,6 +4,7 @@ import { useStore } from '../context/StoreContext';
 import { EbookMockup } from '../components/EbookMockup';
 import { ProductCard } from '../components/ProductCard';
 import { ProductGridSkeleton } from '../components/ProductGridSkeleton';
+import { PdfBooksPromptsSection } from '../components/PdfBooksPromptsSection';
 
 export const EbooksPage: React.FC = () => {
   const { products, openSampleModal, addToCart, navigateToProduct, formatPrice, isLoadingProducts } = useStore();
@@ -146,6 +147,9 @@ export const EbooksPage: React.FC = () => {
           </div>
         </section>
       )}
+
+      {/* Official $20 Prompt PDF Books Section */}
+      <PdfBooksPromptsSection className="pt-4" />
 
       {/* All E-books Marketplace Grid */}
       <section className="space-y-6">

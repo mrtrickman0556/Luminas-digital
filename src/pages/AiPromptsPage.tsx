@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Sparkles, Terminal, Copy, Check, Bot, Cpu, ArrowRight, Eye, ShoppingBag, Search } from 'lucide-react';
+import { Sparkles, Terminal, Copy, Check, Bot, Cpu, ArrowRight, Eye, ShoppingBag, Search, Flame, Zap, Compass, Palette } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { ProductCard } from '../components/ProductCard';
 import { ProductGridSkeleton } from '../components/ProductGridSkeleton';
 import { AI_PROMPT_SUBCATEGORIES } from '../data/initialProducts';
+import { SlashPromptsViewer } from '../components/SlashPromptsViewer';
+import { EditingPromptsViewer } from '../components/EditingPromptsViewer';
+import { PdfBooksPromptsSection } from '../components/PdfBooksPromptsSection';
 
 export const AiPromptsPage: React.FC = () => {
   const { products, openPromptModal, addToCart, formatPrice, isLoadingProducts } = useStore();
@@ -11,6 +14,7 @@ export const AiPromptsPage: React.FC = () => {
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>('All AI Prompts');
   const [activeCopied, setActiveCopied] = useState<string | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [activeViewMode, setActiveViewMode] = useState<'all' | 'trending-vault'>('all');
 
   const handleSubcategoryChange = (sub: string) => {
     if (selectedSubcategory === sub) return;
@@ -44,18 +48,118 @@ export const AiPromptsPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
       {/* Hero Header */}
-      <div className="text-center max-w-2xl mx-auto space-y-3">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+      <div className="text-center max-w-3xl mx-auto space-y-4">
+        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
           <Terminal className="w-3.5 h-3.5" />
-          <span>Curated AI Engineering</span>
+          <span>Curated AI Engineering & Quick-Reference Tools</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-bold font-display text-white">
-          Engineered AI Prompts & Mega-Packs
+          Engineered AI Prompts & Slash Packs
         </h1>
         <p className="text-sm sm:text-base text-neutral-400 leading-relaxed">
-          Stop prompting with simple questions and getting generic robotic fluff. Unlock calibrated prompt vaults tested on GPT-4o, Claude 3.5 Sonnet, and Midjourney.
+          Stop prompting with vague questions and getting generic robotic fluff. Unlock calibrated prompt vaults and slash-style shortcuts tested on GPT-4o, Claude 3.5 Sonnet, and Gemini.
         </p>
+
+        {/* Quick Nav Switcher */}
+        <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href="#pdf-books-prompts-section"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-600/30 transition-all shadow-lg shadow-emerald-900/20 cursor-pointer"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+            <span>PDF Book Editions ($20 Each)</span>
+            <ArrowRight className="w-3 h-3" />
+          </a>
+          <a
+            href="#editing-designing-section"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600/20 text-indigo-300 border border-indigo-500/40 hover:bg-indigo-600/30 transition-all shadow-lg shadow-indigo-900/20 cursor-pointer"
+          >
+            <Palette className="w-3.5 h-3.5 text-indigo-400" />
+            <span>50 One-Word Prompts (Editing & Design)</span>
+            <ArrowRight className="w-3 h-3" />
+          </a>
+          <a
+            href="#trending-slash-section"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-cyan-600/20 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-600/30 transition-all shadow-lg shadow-cyan-900/20 cursor-pointer"
+          >
+            <Flame className="w-3.5 h-3.5 text-cyan-400" />
+            <span>Trending: 100 ChatGPT '/' Prompts</span>
+            <ArrowRight className="w-3 h-3" />
+          </a>
+          <a
+            href="#all-prompt-packs"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-neutral-900 text-neutral-300 border border-neutral-800 hover:text-white hover:bg-neutral-800 transition-all cursor-pointer"
+          >
+            <Compass className="w-3.5 h-3.5 text-neutral-400" />
+            <span>Browse All Packs ({promptProducts.length})</span>
+          </a>
+        </div>
       </div>
+
+      {/* DEDICATED OFFICIAL PDF BOOK SECTION ($20 EACH) */}
+      <PdfBooksPromptsSection id="pdf-books-prompts-section" />
+
+      {/* DEDICATED 50 ONE-WORD PROMPTS (EDITING & DESIGNING) SECTION */}
+      <section id="editing-designing-section" className="space-y-6 pt-2 scroll-mt-24">
+        <div className="p-1 rounded-3xl bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20">
+          <div className="bg-neutral-950/90 rounded-[22px] p-6 sm:p-8 space-y-6 border border-indigo-500/30 backdrop-blur-xl">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-neutral-800/80 pb-5">
+              <div className="space-y-1.5">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/10 text-indigo-300 border border-indigo-500/30">
+                  <Palette className="w-3.5 h-3.5 text-indigo-400" />
+                  <span>ONE-WORD PROMPT CHEATSHEET</span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-bold font-display text-white tracking-tight">
+                  50 Trending One-Word “/” Prompts for Editing & Designing
+                </h2>
+                <p className="text-xs sm:text-sm text-neutral-400 max-w-2xl leading-relaxed">
+                  Fast single-keyword slash directives for image transformers, creative retouching, Midjourney, DALL-E 3 & social design templates. Includes 1-click copy, live filtering, and 5 creative styles.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="px-3 py-1.5 rounded-xl bg-neutral-900 border border-neutral-800 text-xs font-mono text-indigo-400">
+                  50 Keywords Loaded
+                </span>
+              </div>
+            </div>
+
+            {/* Embedded Live Interactive Editing Prompts Viewer */}
+            <EditingPromptsViewer showHeroBanner={false} />
+          </div>
+        </div>
+      </section>
+
+      {/* DEDICATED TRENDING AI PROMPT SECTION */}
+      <section id="trending-slash-section" className="space-y-6 pt-2 scroll-mt-24">
+        <div className="p-1 rounded-3xl bg-gradient-to-r from-cyan-500/20 via-indigo-500/20 to-emerald-500/20">
+          <div className="bg-neutral-950/90 rounded-[22px] p-6 sm:p-8 space-y-6 border border-cyan-500/30 backdrop-blur-xl">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-neutral-800/80 pb-5">
+              <div className="space-y-1.5">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">
+                  <Flame className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+                  <span>TRENDING AI PROMPT SECTION</span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-bold font-display text-white tracking-tight">
+                  100 Trending ChatGPT "/" Prompts
+                </h2>
+                <p className="text-xs sm:text-sm text-neutral-400 max-w-2xl leading-relaxed">
+                  A quick-reference cheatsheet of slash-style prompt commands, grouped across 8 high-velocity categories. Includes 1-click copy, live search, and full 4-page guide structure.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="px-3 py-1.5 rounded-xl bg-neutral-900 border border-neutral-800 text-xs font-mono text-cyan-400">
+                  100 Commands Loaded
+                </span>
+              </div>
+            </div>
+
+            {/* Embedded Live Interactive Slash Prompts Viewer */}
+            <SlashPromptsViewer showHeroBanner={false} />
+          </div>
+        </div>
+      </section>
 
       {/* Interactive Quick-Test Prompt Playground Banner */}
       <div className="rounded-2xl bg-neutral-900 border border-indigo-500/30 p-6 sm:p-8 space-y-4 shadow-xl">
@@ -106,13 +210,13 @@ export const AiPromptsPage: React.FC = () => {
       </div>
 
       {/* Subcategory Pills */}
-      <div className="space-y-4">
+      <div id="all-prompt-packs" className="space-y-4 scroll-mt-24">
         <div className="flex items-center justify-between">
           <h3 className="text-sm font-bold text-white uppercase tracking-wider font-mono">
             Browse Prompt Specialties
           </h3>
           <span className="text-xs text-neutral-400">
-            {filteredPromptProducts.length} Premium Packs
+            {filteredPromptProducts.length} Premium Packs Available
           </span>
         </div>
 
