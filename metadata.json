@@ -1,0 +1,6 @@
+{
+  "name": "Lumina Digital",
+  "description": "A premium digital marketplace offering practical e-books, curated AI prompt packs, productivity templates, and business guides designed for Gen Z, creators, freelancers, and ambitious professionals.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
