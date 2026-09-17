@@ -12,10 +12,10 @@ Order ID: ${orderNumber || 'LUM-DEMO'}
 License: Personal & Commercial Single-User License
 
 --- WHAT'S INCLUDED ---
-${product.whatsIncluded.map((item, idx) => `${idx + 1}. ${item}`).join('\n')}
+${(product.whatsIncluded || []).map((item, idx) => `${idx + 1}. ${item}`).join('\n')}
 
 --- KEY BENEFITS ---
-${product.keyBenefits.map((item, idx) => `- ${item}`).join('\n')}
+${(product.keyBenefits || []).map((item, idx) => `- ${item}`).join('\n')}
 
 --- ACCESS & SUPPORT ---
 For updates and customer support, reach out to support@luminadigital.com

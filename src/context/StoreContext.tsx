@@ -14,6 +14,7 @@ import { INITIAL_PRODUCTS } from '../data/initialProducts';
 import { REVIEWS } from '../data/reviews';
 import { downloadProductFile } from '../utils/fileDownloader';
 import { StoreSection, STORE_SECTIONS } from '../data/searchSections';
+import { useAuth } from './AuthContext';
 
 export const DEFAULT_STORE_SETTINGS: StoreSettings = {
   storeName: 'Lumina Digital',
@@ -187,6 +188,8 @@ const DEFAULT_COUPONS: Coupon[] = [
 const StoreContext = createContext<StoreContextType | undefined>(undefined);
 
 export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const { user, userProfile, syncPurchasedProducts, syncSavedProducts } = useAuth();
+
   // Navigation State
   const [activePage, setActivePage] = useState<string>('home');
   const [selectedProductSlug, setSelectedProductSlug] = useState<string | null>(null);
@@ -204,32 +207,57 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       const saved = localStorage.getItem('lumina_products');
       if (saved) {
         const parsed: Product[] = JSON.parse(saved);
-        // Ensure built-in products reflect latest prices (e.g. $20) and category (E-books)
-        const updated = parsed.map((p: Product) => {
-          const match = INITIAL_PRODUCTS.find(ip => ip.id === p.id);
-          return match
-            ? {
-                ...p,
-                title: match.title,
-                subtitle: match.subtitle,
-                price: match.price,
-                originalPrice: match.originalPrice,
-                category: match.category,
-                tags: match.tags,
-                format: match.format,
-                pagesOrCount: match.pagesOrCount
-              }
-            : p;
+        // Normalize any old product IDs (e.g. prod-trending-100-slash-prompts -> prod-chatgpt-100-slash)
+        const normalized = parsed.map((p: Product) => {
+          const canonicalId = p.id === 'prod-trending-100-slash-prompts' ? 'prod-chatgpt-100-slash' : p.id;
+          const match = INITIAL_PRODUCTS.find(ip => ip.id === canonicalId);
+          if (match) {
+            return {
+              ...match,
+              ...p,
+              id: match.id,
+              slug: match.slug,
+              title: match.title,
+              subtitle: match.subtitle,
+              price: match.price,
+              originalPrice: match.originalPrice,
+              category: match.category,
+              tags: match.tags,
+              format: match.format,
+              pagesOrCount: match.pagesOrCount,
+              ebookDetails: match.ebookDetails || p.ebookDetails,
+              aiDetails: match.aiDetails || p.aiDetails,
+              downloadFilename: match.downloadFilename || p.downloadFilename,
+              downloadContent: match.downloadContent || p.downloadContent,
+              whatsIncluded: match.whatsIncluded || p.whatsIncluded,
+              whoItsFor: match.whoItsFor || p.whoItsFor,
+              keyBenefits: match.keyBenefits || p.keyBenefits
+            };
+          }
+          return p;
         });
-        const existingIds = new Set(updated.map((p: Product) => p.id));
+
+        // Add any missing initial products
+        const existingIds = new Set(normalized.map((p: Product) => p.id));
         const missing = INITIAL_PRODUCTS.filter(p => !existingIds.has(p.id));
-        const merged = [...updated, ...missing];
+        const combined = [...normalized, ...missing];
+
+        // Deduplicate products by ID
+        const uniqueProducts: Product[] = [];
+        const seenIds = new Set<string>();
+        for (const prod of combined) {
+          if (!seenIds.has(prod.id)) {
+            seenIds.add(prod.id);
+            uniqueProducts.push(prod);
+          }
+        }
+
         try {
-          localStorage.setItem('lumina_products', JSON.stringify(merged));
+          localStorage.setItem('lumina_products', JSON.stringify(uniqueProducts));
         } catch {
           // ignore
         }
-        return merged;
+        return uniqueProducts;
       }
     } catch {
       // ignore
@@ -605,6 +633,10 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
   // Cart actions
   const addToCart = (product: Product, quantity = 1) => {
+    if (!product || !product.id) {
+      showToast('Product information unavailable.', 'error');
+      return;
+    }
     setCart(prev => {
       const existing = prev.find(item => item.product.id === product.id);
       if (existing) {
@@ -642,13 +674,16 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const toggleWishlist = (productId: string) => {
     setWishlist(prev => {
       const isSaved = prev.includes(productId);
+      const updated = isSaved ? prev.filter(id => id !== productId) : [...prev, productId];
       if (isSaved) {
         showToast('Removed from saved items', 'info');
-        return prev.filter(id => id !== productId);
       } else {
         showToast('Saved to your wishlist!', 'success');
-        return [...prev, productId];
       }
+      if (user) {
+        syncSavedProducts(updated).catch(e => console.warn('Wishlist sync notice:', e));
+      }
+      return updated;
     });
   };
 
@@ -722,6 +757,13 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     clearCart();
     setAppliedCoupon(null);
 
+    // Sync purchase with Firestore if authenticated
+    if (user) {
+      syncPurchasedProducts(orderItems.map(item => item.productId)).catch(e =>
+        console.warn('Purchase sync notice:', e)
+      );
+    }
+
     // Trigger celebration confetti!
     try {
       confetti({
@@ -741,8 +783,12 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
   // Download item action
   const downloadItem = (product: Product, orderNumber?: string) => {
+    if (!product || !product.id) {
+      showToast('Product file unavailable for download.', 'error');
+      return;
+    }
     downloadProductFile(product, orderNumber);
-    showToast(`Downloading "${product.downloadFilename}"...`, 'success');
+    showToast(`Downloading "${product.downloadFilename || product.title}"...`, 'success');
 
     // Update download count if in an order
     if (currentOrder) {
@@ -754,6 +800,18 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
   // Product Purchase Verification
   const isProductPurchased = (productId: string): boolean => {
+    // Check Firestore user profile
+    if (userProfile?.purchasedProductIds?.includes(productId)) {
+      return true;
+    }
+    if (
+      (productId === 'prod-chatgpt-100-slash' || productId === 'prod-trending-100-slash-prompts') &&
+      (userProfile?.purchasedProductIds?.includes('prod-chatgpt-100-slash') ||
+        userProfile?.purchasedProductIds?.includes('prod-trending-100-slash-prompts'))
+    ) {
+      return true;
+    }
+
     return orders.some(order =>
       order.items.some(item => {
         if (item.productId === productId) return true;

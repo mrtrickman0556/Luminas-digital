@@ -16,15 +16,19 @@ import {
   MessageSquare,
   ArrowRight,
   Heart,
-  FileText
+  FileText,
+  Lock,
+  Unlock
 } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
+import { copyTextToClipboard } from '../utils/clipboard';
 import { EbookMockup } from '../components/EbookMockup';
 import { PromptPackMockup } from '../components/PromptPackMockup';
 import { TemplateMockup } from '../components/TemplateMockup';
 import { ProductCard } from '../components/ProductCard';
 import { ProductDetailSkeleton } from '../components/ProductDetailSkeleton';
 import { SlashPromptsViewer } from '../components/SlashPromptsViewer';
+import { EditingPromptsViewer } from '../components/EditingPromptsViewer';
 
 export const ProductDetailPage: React.FC = () => {
   const {
@@ -40,11 +44,14 @@ export const ProductDetailPage: React.FC = () => {
     addReview,
     showToast,
     setActivePage,
-    isLoadingProductDetail
+    isLoadingProductDetail,
+    isProductPurchased,
+    downloadItem
   } = useStore();
 
   // Find product by slug or default to first
   const product = products.find(p => p.slug === selectedProductSlug) || products[0];
+  const isPurchased = product ? isProductPurchased(product.id) : false;
 
   const [activeTab, setActiveTab] = useState<'details' | 'included' | 'reviews' | 'faq'>('details');
   const [copiedPromptIndex, setCopiedPromptIndex] = useState<number | null>(null);
@@ -84,8 +91,13 @@ export const ProductDetailPage: React.FC = () => {
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : null;
 
-  const handleCopyPrompt = (text: string, idx: number) => {
-    navigator.clipboard.writeText(text);
+  const handleCopyPrompt = async (text: string, idx: number) => {
+    if (!isPurchased) {
+      addToCart(product, 1);
+      showToast('This prompt is locked. Added product to cart to unlock!', 'info');
+      return;
+    }
+    await copyTextToClipboard(text);
     setCopiedPromptIndex(idx);
     showToast('Prompt copied to clipboard!', 'success');
     setTimeout(() => setCopiedPromptIndex(null), 2500);
@@ -370,7 +382,7 @@ export const ProductDetailPage: React.FC = () => {
             }`}
           >
             <span>Reviews</span>
-            <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-neutral-800 text-neutral-300 font-mono">
+            <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-neutral-800 text-neutral-300 font-mono">
               {productReviews.length}
             </span>
           </button>
@@ -418,42 +430,88 @@ export const ProductDetailPage: React.FC = () => {
             {/* AI Prompts Specific Preview if applicable */}
             {product.aiDetails && (
               <div className="mt-8 p-6 rounded-2xl bg-neutral-900 border border-indigo-500/30 space-y-4">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
                     <Terminal className="w-5 h-5 text-indigo-400" />
                     <h4 className="text-base font-bold text-white">Sample Prompts Included in this Pack</h4>
                   </div>
-                  <span className="text-xs font-mono text-indigo-300">
-                    {product.aiDetails.promptCount} Total Prompts
-                  </span>
+                  <div className="flex items-center gap-2">
+                    {isPurchased ? (
+                      <span className="text-xs font-mono text-emerald-400 flex items-center gap-1 bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/30">
+                        <Unlock className="w-3 h-3" /> Unlocked ({product.aiDetails.promptCount} Prompts)
+                      </span>
+                    ) : (
+                      <span className="text-xs font-mono text-amber-400 flex items-center gap-1 bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/30">
+                        <Lock className="w-3 h-3" /> Locked ({product.aiDetails.promptCount} Total Prompts)
+                      </span>
+                    )}
+                  </div>
                 </div>
+
+                {!isPurchased && (
+                  <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200/90 flex items-start gap-2.5">
+                    <Lock className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                    <span>
+                      Full prompt text is locked. Purchase this pack to record it in your local purchase history and unlock complete prompt directives, variables, and 1-click clipboard copy.
+                    </span>
+                  </div>
+                )}
 
                 <div className="space-y-3">
                   {product.aiDetails.examplePrompts.map((sample, idx) => (
                     <div key={idx} className="p-4 rounded-xl bg-black/60 border border-neutral-800 space-y-2">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between gap-2">
                         <span className="text-[11px] font-mono font-bold text-indigo-400">
                           {sample.category} • {sample.title}
                         </span>
-                        <button
-                          type="button"
-                          onClick={() => handleCopyPrompt(sample.prompt, idx)}
-                          className="text-xs text-neutral-400 hover:text-white flex items-center gap-1"
-                        >
-                          {copiedPromptIndex === idx ? (
-                            <span className="text-emerald-400 flex items-center gap-1">
-                              <Check className="w-3.5 h-3.5" /> Copied
-                            </span>
-                          ) : (
-                            <span className="flex items-center gap-1">
-                              <Copy className="w-3.5 h-3.5" /> Copy
-                            </span>
-                          )}
-                        </button>
+                        {isPurchased ? (
+                          <button
+                            type="button"
+                            onClick={() => handleCopyPrompt(sample.prompt, idx)}
+                            className="text-xs text-neutral-300 hover:text-white flex items-center gap-1 bg-neutral-800 hover:bg-neutral-700 px-2.5 py-1 rounded-lg border border-neutral-700 transition-colors cursor-pointer"
+                          >
+                            {copiedPromptIndex === idx ? (
+                              <span className="text-emerald-400 flex items-center gap-1">
+                                <Check className="w-3.5 h-3.5" /> Copied
+                              </span>
+                            ) : (
+                              <span className="flex items-center gap-1">
+                                <Copy className="w-3.5 h-3.5" /> Copy
+                              </span>
+                            )}
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              addToCart(product, 1);
+                              showToast(`Added "${product.title}" to cart to unlock full prompts!`, 'info');
+                            }}
+                            className="text-xs text-amber-300 hover:text-amber-200 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 px-2.5 py-1 rounded-lg flex items-center gap-1 cursor-pointer transition-colors"
+                          >
+                            <Lock className="w-3 h-3 text-amber-400" /> Unlock
+                          </button>
+                        )}
                       </div>
-                      <p className="font-mono text-xs text-neutral-300 leading-relaxed">
-                        {sample.prompt}
-                      </p>
+
+                      {isPurchased ? (
+                        <p className="font-mono text-xs text-neutral-300 leading-relaxed">
+                          {sample.prompt}
+                        </p>
+                      ) : (
+                        <div className="relative p-4 rounded-lg bg-black/75 border border-neutral-800/80 text-center space-y-2 select-none">
+                          <div className="filter blur-[5px] opacity-20 text-neutral-400 font-mono text-xs line-clamp-1 pointer-events-none">
+                            Act as an expert AI prompt engineer. Design an optimized directive with parameters, context variables...
+                          </div>
+                          <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-300 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-md">
+                            <Lock className="w-3 h-3 text-amber-400" />
+                            <span>Full Prompt Text Locked</span>
+                          </div>
+                          <p className="text-[11px] text-neutral-400">
+                            Purchase this pack to reveal the full prompt text and enable 1-click clipboard copy.
+                          </p>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -461,7 +519,7 @@ export const ProductDetailPage: React.FC = () => {
             )}
 
             {/* If product is the 100 Slash Prompts product, embed the full interactive viewer */}
-            {product.id === 'prod-chatgpt-100-slash' && (
+            {(product.id === 'prod-chatgpt-100-slash' || product.id === 'prod-trending-100-slash-prompts') && (
               <div className="mt-10 pt-8 border-t border-neutral-800 space-y-4">
                 <div className="flex items-center justify-between">
                   <h3 className="text-xl font-bold font-display text-white">
@@ -474,6 +532,49 @@ export const ProductDetailPage: React.FC = () => {
                 <SlashPromptsViewer showHeroBanner={false} />
               </div>
             )}
+
+            {/* If product is the 50 One-Word Editing & Designing product, embed the editing prompts viewer */}
+            {product.id === 'prod-editing-designing-50-slash' && (
+              <div className="mt-10 pt-8 border-t border-neutral-800 space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xl font-bold font-display text-white">
+                    Interactive 50 One-Word Prompts Cheatsheet Vault
+                  </h3>
+                  <span className="text-xs font-mono text-indigo-400">
+                    Live 1-Click Copy Ready
+                  </span>
+                </div>
+                <EditingPromptsViewer showHeroBanner={false} />
+              </div>
+            )}
+
+            {/* If product is the Duo Bundle, embed both viewers */}
+            {product.id === 'prod-prompts-duo-bundle-20' && (
+              <div className="mt-10 pt-8 border-t border-neutral-800 space-y-8">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xl font-bold font-display text-white">
+                      Vault 1: 50 Trending One-Word Prompts (Edits & Designs)
+                    </h3>
+                    <span className="text-xs font-mono text-indigo-400">
+                      50 Directives
+                    </span>
+                  </div>
+                  <EditingPromptsViewer showHeroBanner={false} />
+                </div>
+                <div className="space-y-4 pt-6 border-t border-neutral-800">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xl font-bold font-display text-white">
+                      Vault 2: 100 Trending ChatGPT Prompts (Personal Help & Productivity)
+                    </h3>
+                    <span className="text-xs font-mono text-cyan-400">
+                      100 Commands
+                    </span>
+                  </div>
+                  <SlashPromptsViewer showHeroBanner={false} />
+                </div>
+              </div>
+            )}
           </div>
         )}
 
@@ -484,7 +585,7 @@ export const ProductDetailPage: React.FC = () => {
             <div className="space-y-4">
               <h3 className="text-xl font-bold font-display text-white">What is Included in Your Purchase</h3>
               <div className="space-y-3">
-                {product.whatsIncluded.map((item, i) => (
+                {(product.whatsIncluded || []).map((item, i) => (
                   <div
                     key={i}
                     className="p-4 rounded-xl bg-neutral-900 border border-neutral-800 flex items-start gap-3"
@@ -500,7 +601,7 @@ export const ProductDetailPage: React.FC = () => {
             <div className="space-y-4">
               <h3 className="text-xl font-bold font-display text-white">Who This Product Is Specifically For</h3>
               <div className="space-y-3">
-                {product.whoItsFor.map((item, i) => (
+                {(product.whoItsFor || []).map((item, i) => (
                   <div
                     key={i}
                     className="p-4 rounded-xl bg-neutral-900 border border-neutral-800 flex items-start gap-3"

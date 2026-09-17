@@ -1,20 +1,46 @@
 import React, { useState } from 'react';
-import { Sparkles, Terminal, Copy, Check, Bot, Cpu, ArrowRight, Eye, ShoppingBag, Search, Flame, Zap, Compass, Palette } from 'lucide-react';
+import {
+  Sparkles,
+  Terminal,
+  Copy,
+  Check,
+  Bot,
+  Cpu,
+  ArrowRight,
+  Eye,
+  ShoppingBag,
+  Search,
+  Flame,
+  Zap,
+  Compass,
+  Lock,
+  Unlock
+} from 'lucide-react';
 import { useStore } from '../context/StoreContext';
+import { copyTextToClipboard } from '../utils/clipboard';
 import { ProductCard } from '../components/ProductCard';
 import { ProductGridSkeleton } from '../components/ProductGridSkeleton';
 import { AI_PROMPT_SUBCATEGORIES } from '../data/initialProducts';
 import { SlashPromptsViewer } from '../components/SlashPromptsViewer';
-import { EditingPromptsViewer } from '../components/EditingPromptsViewer';
 import { PdfBooksPromptsSection } from '../components/PdfBooksPromptsSection';
 
 export const AiPromptsPage: React.FC = () => {
-  const { products, openPromptModal, addToCart, formatPrice, isLoadingProducts } = useStore();
+  const {
+    products,
+    openPromptModal,
+    addToCart,
+    formatPrice,
+    isLoadingProducts,
+    isProductPurchased,
+    showToast
+  } = useStore();
 
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>('All AI Prompts');
   const [activeCopied, setActiveCopied] = useState<string | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [activeViewMode, setActiveViewMode] = useState<'all' | 'trending-vault'>('all');
+
+  const isMegaPackPurchased = isProductPurchased('prod-ai-mega');
 
   const handleSubcategoryChange = (sub: string) => {
     if (selectedSubcategory === sub) return;
@@ -39,9 +65,16 @@ export const AiPromptsPage: React.FC = () => {
     return false;
   });
 
-  const handleCopyPrompt = (text: string, id: string) => {
-    navigator.clipboard.writeText(text);
+  const handleCopyPrompt = async (text: string, id: string) => {
+    if (id === 'hero-test-prompt' && !isMegaPackPurchased) {
+      const prod = products.find(p => p.id === 'prod-ai-mega');
+      if (prod) addToCart(prod, 1);
+      showToast('This prompt is locked. Added Mega-Pack to cart to unlock!', 'info');
+      return;
+    }
+    await copyTextToClipboard(text);
     setActiveCopied(id);
+    showToast('Prompt copied to clipboard!', 'success');
     setTimeout(() => setActiveCopied(null), 2500);
   };
 
@@ -49,9 +82,9 @@ export const AiPromptsPage: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
       {/* Hero Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-          <Terminal className="w-3.5 h-3.5" />
-          <span>Curated AI Engineering & Quick-Reference Tools</span>
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 shadow-sm">
+          <Terminal className="w-3.5 h-3.5 text-indigo-400" />
+          <span>Curated AI Engineering & Production Vaults</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-bold font-display text-white">
           Engineered AI Prompts & Slash Packs
@@ -67,15 +100,7 @@ export const AiPromptsPage: React.FC = () => {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-600/30 transition-all shadow-lg shadow-emerald-900/20 cursor-pointer"
           >
             <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-            <span>PDF Book Editions ($20 Each)</span>
-            <ArrowRight className="w-3 h-3" />
-          </a>
-          <a
-            href="#editing-designing-section"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600/20 text-indigo-300 border border-indigo-500/40 hover:bg-indigo-600/30 transition-all shadow-lg shadow-indigo-900/20 cursor-pointer"
-          >
-            <Palette className="w-3.5 h-3.5 text-indigo-400" />
-            <span>50 One-Word Prompts (Editing & Design)</span>
+            <span>Official PDF Books ($20 Each)</span>
             <ArrowRight className="w-3 h-3" />
           </a>
           <a
@@ -98,37 +123,6 @@ export const AiPromptsPage: React.FC = () => {
 
       {/* DEDICATED OFFICIAL PDF BOOK SECTION ($20 EACH) */}
       <PdfBooksPromptsSection id="pdf-books-prompts-section" />
-
-      {/* DEDICATED 50 ONE-WORD PROMPTS (EDITING & DESIGNING) SECTION */}
-      <section id="editing-designing-section" className="space-y-6 pt-2 scroll-mt-24">
-        <div className="p-1 rounded-3xl bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20">
-          <div className="bg-neutral-950/90 rounded-[22px] p-6 sm:p-8 space-y-6 border border-indigo-500/30 backdrop-blur-xl">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-neutral-800/80 pb-5">
-              <div className="space-y-1.5">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/10 text-indigo-300 border border-indigo-500/30">
-                  <Palette className="w-3.5 h-3.5 text-indigo-400" />
-                  <span>ONE-WORD PROMPT CHEATSHEET</span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-bold font-display text-white tracking-tight">
-                  50 Trending One-Word “/” Prompts for Editing & Designing
-                </h2>
-                <p className="text-xs sm:text-sm text-neutral-400 max-w-2xl leading-relaxed">
-                  Fast single-keyword slash directives for image transformers, creative retouching, Midjourney, DALL-E 3 & social design templates. Includes 1-click copy, live filtering, and 5 creative styles.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2 shrink-0">
-                <span className="px-3 py-1.5 rounded-xl bg-neutral-900 border border-neutral-800 text-xs font-mono text-indigo-400">
-                  50 Keywords Loaded
-                </span>
-              </div>
-            </div>
-
-            {/* Embedded Live Interactive Editing Prompts Viewer */}
-            <EditingPromptsViewer showHeroBanner={false} />
-          </div>
-        </div>
-      </section>
 
       {/* DEDICATED TRENDING AI PROMPT SECTION */}
       <section id="trending-slash-section" className="space-y-6 pt-2 scroll-mt-24">
@@ -167,45 +161,88 @@ export const AiPromptsPage: React.FC = () => {
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-indigo-400" />
             <h3 className="text-sm sm:text-base font-bold text-white">
-              Try a Live Sample Prompt from the 3,500+ Mega-Pack
+              Direct Marketing Prompt from the 3,500+ Mega-Pack
             </h3>
           </div>
-          <span className="text-xs font-mono text-neutral-400">100% Free to test</span>
+          <div>
+            {isMegaPackPurchased ? (
+              <span className="text-xs font-mono text-emerald-400 flex items-center gap-1 bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/30">
+                <Unlock className="w-3 h-3" /> Unlocked in Your Library
+              </span>
+            ) : (
+              <span className="text-xs font-mono text-amber-400 flex items-center gap-1 bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/30">
+                <Lock className="w-3 h-3" /> Locked • Mega-Pack Required
+              </span>
+            )}
+          </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-black/60 border border-neutral-800 font-mono text-xs sm:text-sm text-neutral-200 leading-relaxed relative">
-          <p>
-            <span className="text-indigo-400 font-bold">System:</span> Act as an elite direct-response growth marketer.<br />
-            <span className="text-emerald-400 font-bold">Prompt:</span> I am selling [PRODUCT_NAME] to [GEN_Z_AUDIENCE]. The primary pain point is [PAIN_POINT]. Generate 3 high-converting landing page hooks using psychological pattern interrupts. Remove all corporate jargon like "revolutionize" or "supercharge".
-          </p>
+        <div className="p-4 rounded-xl bg-black/60 border border-neutral-800 relative">
+          {isMegaPackPurchased ? (
+            <>
+              <p className="font-mono text-xs sm:text-sm text-neutral-200 leading-relaxed">
+                <span className="text-indigo-400 font-bold">System:</span> Act as an elite direct-response growth marketer.<br />
+                <span className="text-emerald-400 font-bold">Prompt:</span> I am selling [PRODUCT_NAME] to [GEN_Z_AUDIENCE]. The primary pain point is [PAIN_POINT]. Generate 3 high-converting landing page hooks using psychological pattern interrupts. Remove all corporate jargon like "revolutionize" or "supercharge".
+              </p>
 
-          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-neutral-800/80">
-            <span className="text-[11px] text-neutral-400">
-              Compatible with ChatGPT, Claude 3.5 Sonnet, and Gemini Pro
-            </span>
-            <button
-              type="button"
-              onClick={() =>
-                handleCopyPrompt(
-                  `Act as an elite direct-response growth marketer. I am selling [PRODUCT_NAME] to [GEN_Z_AUDIENCE]. The primary pain point is [PAIN_POINT]. Generate 3 high-converting landing page hooks using psychological pattern interrupts. Remove all corporate jargon like "revolutionize" or "supercharge".`,
-                  'hero-test-prompt'
-                )
-              }
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-neutral-800 hover:bg-neutral-700 text-white transition-colors border border-neutral-700 cursor-pointer"
-            >
-              {activeCopied === 'hero-test-prompt' ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span className="text-emerald-400">Copied to Clipboard!</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-3.5 h-3.5" />
-                  <span>Copy Prompt</span>
-                </>
-              )}
-            </button>
-          </div>
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-neutral-800/80">
+                <span className="text-[11px] text-neutral-400">
+                  Compatible with ChatGPT, Claude 3.5 Sonnet, and Gemini Pro
+                </span>
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleCopyPrompt(
+                      `Act as an elite direct-response growth marketer. I am selling [PRODUCT_NAME] to [GEN_Z_AUDIENCE]. The primary pain point is [PAIN_POINT]. Generate 3 high-converting landing page hooks using psychological pattern interrupts. Remove all corporate jargon like "revolutionize" or "supercharge".`,
+                      'hero-test-prompt'
+                    )
+                  }
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-neutral-800 hover:bg-neutral-700 text-white transition-colors border border-neutral-700 cursor-pointer"
+                >
+                  {activeCopied === 'hero-test-prompt' ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-400" />
+                      <span className="text-emerald-400">Copied to Clipboard!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5" />
+                      <span>Copy Prompt</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className="py-6 text-center space-y-3">
+              <div className="filter blur-[5px] opacity-20 text-neutral-400 font-mono text-xs line-clamp-1 pointer-events-none select-none">
+                System: Act as an elite direct-response growth marketer. Prompt: I am selling [PRODUCT_NAME] to [GEN_Z_AUDIENCE]...
+              </div>
+              <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-300 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-lg">
+                <Lock className="w-3.5 h-3.5 text-amber-400" />
+                <span>Full Prompt Directive Locked</span>
+              </div>
+              <p className="text-xs text-neutral-400 max-w-md mx-auto">
+                Full prompt directives and system templates from "The Ultimate AI Creator & Business Mega-Pack" are locked. Complete checkout to store this product in your local purchase history and unlock full prompt text.
+              </p>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const prod = products.find(p => p.id === 'prod-ai-mega');
+                    if (prod) {
+                      addToCart(prod, 1);
+                      showToast('Added Mega-Pack to cart to unlock!', 'info');
+                    }
+                  }}
+                  className="px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white inline-flex items-center gap-1.5 shadow-md shadow-indigo-600/20 transition-all cursor-pointer"
+                >
+                  <ShoppingBag className="w-3.5 h-3.5" />
+                  <span>Unlock 3,500+ Mega-Pack ($29)</span>
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

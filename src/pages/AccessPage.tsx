@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { downloadDigitalProduct } from '../utils/fileDownloader';
+import { copyTextToClipboard } from '../utils/clipboard';
 
 export const AccessPage: React.FC = () => {
   const { currentOrder, orders, showToast, setActivePage } = useStore();
@@ -45,8 +46,8 @@ export const AccessPage: React.FC = () => {
     }, 600);
   };
 
-  const copyOrderId = (id: string) => {
-    navigator.clipboard.writeText(id);
+  const copyOrderId = async (id: string) => {
+    await copyTextToClipboard(id);
     setCopiedOrderId(true);
     showToast('Order ID copied to clipboard', 'success');
     setTimeout(() => setCopiedOrderId(false), 2000);

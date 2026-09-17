@@ -319,19 +319,19 @@ export const PdfBooksPromptsSection: React.FC<PdfBooksPromptsSectionProps> = ({
                 <ul className="text-xs text-neutral-300 space-y-1.5 font-sans">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
-                    <span><strong>Page 1:</strong> Personal Help & Productivity (/motivate, /budget, /mealplan, /plan, /prioritize...)</span>
+                    <span><strong>Page 1:</strong> Productivity, Writing & Study Prep (/plan, /prioritize, /rewrite, /outline, /explain...)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
-                    <span><strong>Page 2:</strong> Writing & Study Prep (/rewrite, /shorten, /eli5, /quiz, /flashcards, /examprep...)</span>
+                    <span><strong>Page 2:</strong> Study Prep, Coding & Tech Shortcuts, Business (/code, /debug, /optimize, /refactor, /resume...)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
-                    <span><strong>Page 3:</strong> Coding & Tech Shortcuts (/code, /debug, /optimize, /refactor, /regex, /sql, /api...)</span>
+                    <span><strong>Page 3:</strong> Creative, Personal Help & Social (/poem, /motivate, /budget, /mealplan, /hashtags...)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
-                    <span><strong>Page 4:</strong> Business, Career & Marketing (/resume, /interview, /pitch, /swot, /adcopy...)</span>
+                    <span><strong>Page 4:</strong> Marketing Campaigns & Custom Instructions Hotkey Setup (96–100)</span>
                   </li>
                 </ul>
               </div>

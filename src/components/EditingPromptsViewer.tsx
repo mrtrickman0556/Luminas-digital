@@ -28,6 +28,7 @@ import {
   OneWordPrompt
 } from '../data/editingDesigningPrompts';
 import { useStore } from '../context/StoreContext';
+import { copyTextToClipboard } from '../utils/clipboard';
 
 const FREE_SAMPLE_IDS = [1, 2, 3, 4];
 
@@ -94,7 +95,7 @@ export const EditingPromptsViewer: React.FC<EditingPromptsViewerProps> = ({
     });
   }, [searchQuery, selectedCategory, selectedPage]);
 
-  const handleCopyCommandOnly = (prompt: OneWordPrompt, e: React.MouseEvent) => {
+  const handleCopyCommandOnly = async (prompt: OneWordPrompt, e: React.MouseEvent) => {
     e.stopPropagation();
     const isLocked = !isPurchased && !FREE_SAMPLE_IDS.includes(prompt.id);
     if (isLocked) {
@@ -102,13 +103,13 @@ export const EditingPromptsViewer: React.FC<EditingPromptsViewerProps> = ({
       showToast('This prompt is locked. Added the $20 PDF Book to cart to unlock!', 'info');
       return;
     }
-    navigator.clipboard.writeText(`${prompt.command} `);
+    await copyTextToClipboard(`${prompt.command} `);
     setCopiedId(prompt.id);
     showToast(`Copied command "${prompt.command}" to clipboard!`, 'success');
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  const handleCopyFullPrompt = (prompt: OneWordPrompt, e: React.MouseEvent) => {
+  const handleCopyFullPrompt = async (prompt: OneWordPrompt, e: React.MouseEvent) => {
     e.stopPropagation();
     const isLocked = !isPurchased && !FREE_SAMPLE_IDS.includes(prompt.id);
     if (isLocked) {
@@ -116,7 +117,7 @@ export const EditingPromptsViewer: React.FC<EditingPromptsViewerProps> = ({
       showToast('Locked! Purchase the official 50 Prompts PDF Book ($20) to unlock full templates.', 'info');
       return;
     }
-    navigator.clipboard.writeText(prompt.promptTemplate);
+    await copyTextToClipboard(prompt.promptTemplate);
     setCopiedId(prompt.id);
     showToast(`Copied ready-to-use prompt for ${prompt.command}!`, 'success');
     setTimeout(() => setCopiedId(null), 2000);
@@ -349,7 +350,7 @@ export const EditingPromptsViewer: React.FC<EditingPromptsViewerProps> = ({
             >
               <span>{cat}</span>
               <span
-                className={`text-[10px] px-1.5 py-0.2 rounded font-mono ${
+                className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
                   isSelected ? 'bg-black/30 text-white' : 'bg-neutral-800 text-neutral-400'
                 }`}
               >

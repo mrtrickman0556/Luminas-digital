@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { TRENDING_100_SLASH_PROMPTS, SLASH_CATEGORIES, SlashPrompt } from '../data/trendingSlashPrompts';
 import { useStore } from '../context/StoreContext';
+import { copyTextToClipboard } from '../utils/clipboard';
 
 const FREE_SAMPLE_IDS = [1, 2, 3, 4];
 
@@ -71,7 +72,7 @@ export const SlashPromptsViewer: React.FC<SlashPromptsViewerProps> = ({
     });
   }, [searchQuery, selectedCategory, selectedPage]);
 
-  const handleCopyCommand = (prompt: SlashPrompt, e: React.MouseEvent) => {
+  const handleCopyCommand = async (prompt: SlashPrompt, e: React.MouseEvent) => {
     e.stopPropagation();
     const isLocked = !isPurchased && !FREE_SAMPLE_IDS.includes(prompt.id);
     if (isLocked) {
@@ -79,13 +80,13 @@ export const SlashPromptsViewer: React.FC<SlashPromptsViewerProps> = ({
       showToast('This prompt is locked. Added the $20 PDF Book to cart to unlock!', 'info');
       return;
     }
-    navigator.clipboard.writeText(`${prompt.command} `);
+    await copyTextToClipboard(`${prompt.command} `);
     setCopiedId(prompt.id);
     showToast(`Copied "${prompt.command}" to clipboard!`, 'success');
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  const handleCopyTemplate = (prompt: SlashPrompt, e: React.MouseEvent) => {
+  const handleCopyTemplate = async (prompt: SlashPrompt, e: React.MouseEvent) => {
     e.stopPropagation();
     const isLocked = !isPurchased && !FREE_SAMPLE_IDS.includes(prompt.id);
     if (isLocked) {
@@ -93,7 +94,7 @@ export const SlashPromptsViewer: React.FC<SlashPromptsViewerProps> = ({
       showToast('Locked! Purchase the official 100 Prompts PDF Book ($20) to unlock full templates.', 'info');
       return;
     }
-    navigator.clipboard.writeText(prompt.promptTemplate);
+    await copyTextToClipboard(prompt.promptTemplate);
     setCopiedId(prompt.id);
     showToast(`Copied full template for ${prompt.command}!`, 'success');
     setTimeout(() => setCopiedId(null), 2000);
@@ -304,7 +305,7 @@ export const SlashPromptsViewer: React.FC<SlashPromptsViewerProps> = ({
               }`}
             >
               <span>{cat}</span>
-              <span className={`text-[10px] px-1.5 py-0.2 rounded-md font-mono ${
+              <span className={`text-[10px] px-1.5 py-0.5 rounded-md font-mono ${
                 isSelected ? 'bg-neutral-950/20 text-neutral-900' : 'bg-neutral-800 text-neutral-400'
               }`}>
                 {count}

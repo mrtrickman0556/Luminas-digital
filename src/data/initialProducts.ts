@@ -537,13 +537,13 @@ Keep growing, keep learning, and keep shining! ✨
 "100 Trending ChatGPT '/' Prompts (Personal Help & Productivity)" provides a clean, 4-page quick-reference PDF cheatsheet and digital prompt vault containing 100 battle-tested slash-style prompt commands.
 
 Grouped by Category:
-• Personal Help & Lifestyle (1–12): /motivate, /journal, /advice, /mealplan, /workout, /budget, /travel, /giftideas, /selfcare, /booklist, /skill, /decisionhelp
-• Productivity (13–24): /plan, /prioritize, /schedule, /checklist, /summarize, /decide, /goals, /habit, /timeblock, /delegate, /review, /focus
-• Writing (25–37): /rewrite, /shorten, /expand, /tone, /proofread, /outline, /email, /essay, /story, /headline, /caption, /bio, /letter
-• Study & Exam Prep (38–50): /explain, /eli5, /quiz, /notes, /flashcards, /mnemonics, /examprep, /compare, /define, /steps, /practice, /revise, /answer
-• Coding (51–62): /code, /debug, /explaincode, /optimize, /comment, /convert, /test, /refactor, /regex, /sql, /api, /architecture
-• Business & Career (63–75): /resume, /coverletter, /interview, /pitch, /swot, /strategy, /negotiate, /proposal, /marketresearch, /branding, /okr, /report, /meeting
-• Creative (76–87): /poem, /songidea, /namegen, /worldbuild, /character, /plot, /dialogue, /joke, /riddle, /metaphor, /script, /artprompt
+• Productivity (1–12): /plan, /prioritize, /schedule, /checklist, /summarize, /decide, /goals, /habit, /timeblock, /delegate, /review, /focus
+• Writing (13–25): /rewrite, /shorten, /expand, /tone, /proofread, /outline, /email, /essay, /story, /headline, /caption, /bio, /letter
+• Study & Exam Prep (26–38): /explain, /eli5, /quiz, /notes, /flashcards, /mnemonics, /examprep, /compare, /define, /steps, /practice, /revise, /answer
+• Coding (39–50): /code, /debug, /explaincode, /optimize, /comment, /convert, /test, /refactor, /regex, /sql, /api, /architecture
+• Business & Career (51–63): /resume, /coverletter, /interview, /pitch, /swot, /strategy, /negotiate, /proposal, /marketresearch, /branding, /okr, /report, /meeting
+• Creative (64–75): /poem, /songidea, /namegen, /worldbuild, /character, /plot, /dialogue, /joke, /riddle, /metaphor, /script, /artprompt
+• Personal & Lifestyle (76–87): /motivate, /journal, /advice, /mealplan, /workout, /budget, /travel, /giftideas, /selfcare, /booklist, /skill, /decisionhelp
 • Marketing & Social (88–100): /hashtags, /adcopy, /socialpost, /emailmarketing, /seotitle, /productdesc, /brandvoice, /contentcalendar, /influencer, /landingpage, /testimonial, /videoscript, /analytics`,
     price: 20,
     originalPrice: 40,

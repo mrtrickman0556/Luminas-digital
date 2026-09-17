@@ -15,12 +15,19 @@ import {
   Globe,
   ArrowRight,
   FileText,
-  Flame
+  Flame,
+  LogIn,
+  LogOut,
+  User,
+  ShieldCheck
 } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
+import { useAuth } from '../context/AuthContext';
 import { LiveSearchDropdown } from './LiveSearchDropdown';
 
 export const Navbar: React.FC = () => {
+  const { user, userProfile, signInWithGoogle, logout } = useAuth();
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const {
     activePage,
     setActivePage,
@@ -170,10 +177,13 @@ export const Navbar: React.FC = () => {
                   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 100);
               }}
-              className="px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 text-emerald-300 hover:text-white hover:bg-neutral-800/50"
+              className="px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 text-neutral-300 hover:text-white hover:bg-neutral-800/60"
             >
               <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Prompt PDF Books ($20)</span>
+              <span>PDF Books</span>
+              <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                Vault
+              </span>
             </button>
             <button
               type="button"
@@ -184,10 +194,13 @@ export const Navbar: React.FC = () => {
                   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 100);
               }}
-              className="px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 text-cyan-300 hover:text-white hover:bg-neutral-800/50"
+              className="px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 text-neutral-300 hover:text-white hover:bg-neutral-800/60"
             >
               <Flame className="w-3.5 h-3.5 text-cyan-400" />
-              <span>100 Prompts</span>
+              <span>Trending Prompts</span>
+              <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
+                100
+              </span>
             </button>
             <button
               type="button"
@@ -255,6 +268,105 @@ export const Navbar: React.FC = () => {
             >
               <Search className="w-4 h-4" />
             </button>
+
+            {/* Firebase Google Auth User Profile / Login */}
+            {user ? (
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                  className="flex items-center gap-2 p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-200 transition-colors cursor-pointer"
+                  title="Your Account & Firestore Synced Vault"
+                >
+                  {user.photoURL ? (
+                    <img
+                      src={user.photoURL}
+                      alt={user.displayName || 'User'}
+                      className="w-6 h-6 rounded-full border border-neutral-700"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <div className="w-6 h-6 rounded-full bg-indigo-600/30 text-indigo-400 border border-indigo-500/30 flex items-center justify-center text-xs font-bold">
+                      {(user.displayName || user.email || 'U')[0].toUpperCase()}
+                    </div>
+                  )}
+                  <span className="text-xs font-medium hidden md:inline max-w-[100px] truncate">
+                    {user.displayName || user.email?.split('@')[0]}
+                  </span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse hidden sm:inline" />
+                </button>
+
+                {userDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-64 bg-neutral-900 border border-neutral-800 rounded-2xl shadow-2xl p-3 z-50 text-xs animate-in fade-in zoom-in-95">
+                    <div className="flex items-center gap-2.5 pb-2.5 mb-2.5 border-b border-neutral-800">
+                      {user.photoURL ? (
+                        <img
+                          src={user.photoURL}
+                          alt="Avatar"
+                          className="w-8 h-8 rounded-full border border-neutral-700"
+                          referrerPolicy="no-referrer"
+                        />
+                      ) : (
+                        <div className="w-8 h-8 rounded-full bg-indigo-600/30 text-indigo-400 flex items-center justify-center font-bold">
+                          {(user.displayName || 'U')[0].toUpperCase()}
+                        </div>
+                      )}
+                      <div className="overflow-hidden">
+                        <p className="font-semibold text-white truncate">{user.displayName || 'Shopper'}</p>
+                        <p className="text-[11px] text-neutral-400 truncate">{user.email}</p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-1 py-1">
+                      <div className="flex items-center justify-between text-neutral-400 px-2 py-1 bg-neutral-800/40 rounded-lg">
+                        <span className="flex items-center gap-1.5 text-[11px]">
+                          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                          <span>Firestore Persistence</span>
+                        </span>
+                        <span className="text-[10px] font-mono text-emerald-300 font-semibold">Active</span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setUserDropdownOpen(false);
+                          setActivePage('access');
+                        }}
+                        className="w-full text-left px-2 py-1.5 rounded-lg text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors flex items-center justify-between"
+                      >
+                        <span>My Purchases</span>
+                        <span className="text-[10px] font-mono text-indigo-400">
+                          {userProfile?.purchasedProductIds?.length || 0} items
+                        </span>
+                      </button>
+                    </div>
+
+                    <div className="pt-2 mt-2 border-t border-neutral-800">
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          setUserDropdownOpen(false);
+                          await logout();
+                        }}
+                        className="w-full px-2 py-1.5 text-rose-400 hover:text-rose-300 hover:bg-rose-950/30 rounded-lg transition-colors flex items-center gap-2 font-medium"
+                      >
+                        <LogOut className="w-3.5 h-3.5" />
+                        <span>Sign Out</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => signInWithGoogle()}
+                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-200 text-xs font-semibold transition-colors cursor-pointer"
+                title="Sign in with Google to sync purchases and enquiries"
+              >
+                <LogIn className="w-3.5 h-3.5 text-indigo-400" />
+                <span>Sign In</span>
+              </button>
+            )}
 
             {/* Cart Button */}
             <button
@@ -355,6 +467,62 @@ export const Navbar: React.FC = () => {
             />
           </div>
 
+          {/* User Account / Google Sign-In in Mobile Menu */}
+          {user ? (
+            <div className="p-3 bg-neutral-900 border border-neutral-800 rounded-xl space-y-2">
+              <div className="flex items-center gap-2.5">
+                {user.photoURL ? (
+                  <img
+                    src={user.photoURL}
+                    alt={user.displayName || 'User'}
+                    className="w-8 h-8 rounded-full border border-neutral-700"
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  <div className="w-8 h-8 rounded-full bg-indigo-600/30 text-indigo-400 flex items-center justify-center font-bold">
+                    {(user.displayName || user.email || 'U')[0].toUpperCase()}
+                  </div>
+                )}
+                <div className="overflow-hidden flex-1">
+                  <p className="text-xs font-semibold text-white truncate">{user.displayName || 'Customer'}</p>
+                  <p className="text-[10px] text-neutral-400 truncate">{user.email}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    await logout();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="p-1.5 text-rose-400 hover:text-rose-300 rounded-lg hover:bg-neutral-800"
+                  title="Sign Out"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="flex items-center justify-between text-[11px] text-neutral-400 pt-1 border-t border-neutral-800/80">
+                <span className="flex items-center gap-1 text-emerald-400">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  Cloud Firestore Synced
+                </span>
+                <span className="text-[10px] text-indigo-400 font-mono">
+                  {userProfile?.purchasedProductIds?.length || 0} purchased
+                </span>
+              </div>
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={() => {
+                signInWithGoogle();
+                setMobileMenuOpen(false);
+              }}
+              className="w-full py-2.5 px-3 bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+            >
+              <LogIn className="w-4 h-4 text-indigo-400" />
+              <span>Sign in with Google Account</span>
+            </button>
+          )}
+
           <button
             type="button"
             onClick={() => handleNavClick('home')}
@@ -413,14 +581,14 @@ export const Navbar: React.FC = () => {
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }, 120);
             }}
-            className="w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between text-emerald-300 hover:bg-neutral-800"
+            className="w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between text-neutral-300 hover:text-white hover:bg-neutral-800"
           >
             <span className="flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-emerald-400" />
-              Prompt PDF Books ($20)
+              PDF Books
             </span>
-            <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-bold">
-              $20 Each
+            <span className="text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-md">
+              Vault
             </span>
           </button>
           <button
@@ -433,14 +601,14 @@ export const Navbar: React.FC = () => {
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }, 120);
             }}
-            className="w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between text-cyan-300 hover:bg-neutral-800"
+            className="w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between text-neutral-300 hover:text-white hover:bg-neutral-800"
           >
             <span className="flex items-center gap-2">
               <Flame className="w-4 h-4 text-cyan-400" />
-              Trending '/' Prompts
+              Trending Prompts
             </span>
-            <span className="text-[10px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full font-bold">
-              100 Cheatsheet
+            <span className="text-[10px] font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-2 py-0.5 rounded-md">
+              100
             </span>
           </button>
           <button

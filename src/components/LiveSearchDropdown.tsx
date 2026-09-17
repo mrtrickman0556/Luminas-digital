@@ -20,6 +20,7 @@ import {
   Lock
 } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
+import { copyTextToClipboard } from '../utils/clipboard';
 import { Product } from '../types';
 import { STORE_SECTIONS, StoreSection } from '../data/searchSections';
 import { TRENDING_100_SLASH_PROMPTS, SlashPrompt } from '../data/trendingSlashPrompts';
@@ -156,7 +157,7 @@ export const LiveSearchDropdown: React.FC<LiveSearchDropdownProps> = ({
     matchingProducts.length > 0 ||
     matchingCategories.length > 0;
 
-  const handleCopySlashPrompt = (e: React.MouseEvent, prompt: SlashPrompt) => {
+  const handleCopySlashPrompt = async (e: React.MouseEvent, prompt: SlashPrompt) => {
     e.stopPropagation();
     const isLocked = !isPurchased100 && !FREE_SAMPLE_IDS.includes(prompt.id);
     if (isLocked) {
@@ -165,7 +166,7 @@ export const LiveSearchDropdown: React.FC<LiveSearchDropdownProps> = ({
       showToast('Prompt is protected! Added the $20 PDF Book to your cart.', 'info');
       return;
     }
-    navigator.clipboard.writeText(prompt.promptTemplate);
+    await copyTextToClipboard(prompt.promptTemplate);
     setCopiedPromptId(prompt.id);
     showToast(`Copied ${prompt.command} prompt to clipboard!`, 'success');
     setTimeout(() => {
@@ -173,7 +174,7 @@ export const LiveSearchDropdown: React.FC<LiveSearchDropdownProps> = ({
     }, 2000);
   };
 
-  const handleCopyOneWordPrompt = (e: React.MouseEvent, prompt: OneWordPrompt) => {
+  const handleCopyOneWordPrompt = async (e: React.MouseEvent, prompt: OneWordPrompt) => {
     e.stopPropagation();
     const isLocked = !isPurchased50 && !FREE_SAMPLE_IDS.includes(prompt.id);
     if (isLocked) {
@@ -182,7 +183,7 @@ export const LiveSearchDropdown: React.FC<LiveSearchDropdownProps> = ({
       showToast('Prompt is protected! Added the $20 Editing PDF Book to your cart.', 'info');
       return;
     }
-    navigator.clipboard.writeText(prompt.promptTemplate);
+    await copyTextToClipboard(prompt.promptTemplate);
     setCopiedPromptId(1000 + prompt.id);
     showToast(`Copied ${prompt.command} prompt for ${prompt.keyword}!`, 'success');
     setTimeout(() => {
@@ -431,7 +432,7 @@ export const LiveSearchDropdown: React.FC<LiveSearchDropdownProps> = ({
                                 {prompt.action}
                               </span>
                               {isLocked ? (
-                                <span className="text-[10px] text-cyan-400 font-mono flex items-center gap-1 bg-cyan-500/10 px-1.5 py-0.2 rounded border border-cyan-500/20">
+                                <span className="text-[10px] text-cyan-400 font-mono flex items-center gap-1 bg-cyan-500/10 px-1.5 py-0.5 rounded border border-cyan-500/20">
                                   <Lock className="w-2.5 h-2.5" /> $20 Book
                                 </span>
                               ) : (
@@ -497,7 +498,11 @@ export const LiveSearchDropdown: React.FC<LiveSearchDropdownProps> = ({
                       onClick={() => {
                         setIsOpen(false);
                         const sec = STORE_SECTIONS.find(s => s.id === 'editing-designing-prompts');
-                        if (sec) navigateToSection(sec);
+                        if (sec) {
+                          navigateToSection(sec);
+                        } else {
+                          navigateToProduct('50-trending-one-word-slash-prompts-editing-designing');
+                        }
                       }}
                       className="text-[10px] text-indigo-400 hover:text-indigo-300 font-mono flex items-center gap-1 cursor-pointer"
                     >
@@ -525,7 +530,7 @@ export const LiveSearchDropdown: React.FC<LiveSearchDropdownProps> = ({
                                 {prompt.keyword}: {prompt.action}
                               </span>
                               {isLocked ? (
-                                <span className="text-[10px] text-indigo-400 font-mono flex items-center gap-1 bg-indigo-500/10 px-1.5 py-0.2 rounded border border-indigo-500/20">
+                                <span className="text-[10px] text-indigo-400 font-mono flex items-center gap-1 bg-indigo-500/10 px-1.5 py-0.5 rounded border border-indigo-500/20">
                                   <Lock className="w-2.5 h-2.5" /> $20 Book
                                 </span>
                               ) : (
@@ -619,7 +624,7 @@ export const LiveSearchDropdown: React.FC<LiveSearchDropdownProps> = ({
                                 {product.title}
                               </span>
                               {product.isBestSeller && (
-                                <span className="hidden sm:inline-block px-1.5 py-0.2 rounded text-[9px] font-bold font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                                <span className="hidden sm:inline-block px-1.5 py-0.5 rounded text-[9px] font-bold font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30">
                                   Best Seller
                                 </span>
                               )}

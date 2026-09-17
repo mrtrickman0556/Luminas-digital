@@ -75,7 +75,7 @@ export const EbookReaderModal: React.FC = () => {
                 <span className="text-[10px] font-mono font-bold text-blue-400 uppercase tracking-wider">
                   Interactive E-Book Viewer
                 </span>
-                <span className="px-1.5 py-0.2 rounded text-[9px] font-mono bg-neutral-800 text-neutral-300">
+                <span className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-neutral-800 text-neutral-300">
                   {pdfPages.length > 0 ? 'Full 8-Page Edition' : `${sampleModalProduct.pagesOrCount}`}
                 </span>
               </div>

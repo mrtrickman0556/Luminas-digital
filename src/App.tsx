@@ -1,4 +1,5 @@
 import React from 'react';
+import { AuthProvider } from './context/AuthContext';
 import { StoreProvider, useStore } from './context/StoreContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
@@ -8,6 +9,7 @@ import { PromptPreviewModal } from './components/PromptPreviewModal';
 import { SocialProofToast } from './components/SocialProofToast';
 import { ExitIntentModal } from './components/ExitIntentModal';
 import { ToastContainer } from './components/ToastContainer';
+import { CustomerChatbot } from './components/CustomerChatbot';
 
 // Pages
 import { HomePage } from './pages/HomePage';
@@ -80,14 +82,17 @@ const AppContent: React.FC = () => {
       <SocialProofToast />
       <ExitIntentModal />
       <ToastContainer />
+      <CustomerChatbot />
     </div>
   );
 };
 
 export default function App() {
   return (
-    <StoreProvider>
-      <AppContent />
-    </StoreProvider>
+    <AuthProvider>
+      <StoreProvider>
+        <AppContent />
+      </StoreProvider>
+    </AuthProvider>
   );
 }

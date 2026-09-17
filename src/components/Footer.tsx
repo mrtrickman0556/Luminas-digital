@@ -138,7 +138,7 @@ export const Footer: React.FC = () => {
                   className="hover:text-white transition-colors flex items-center gap-1.5"
                 >
                   <span>E-books</span>
-                  <span className="text-[9px] font-mono bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 rounded">
+                  <span className="text-[9px] font-mono bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded">
                     Popular
                   </span>
                 </button>
